@@ -21,6 +21,58 @@ const navigation: NavItem[] = [
     icon: '🏠'
   },
   {
+    title: 'Technology & AI',
+    href: '/technology-ai',
+    icon: '🤖',
+    children: [
+      { title: 'AI Projects', href: '/technology-ai/ai-projects' },
+      { title: 'Web Development', href: '/technology-ai/web-development' },
+      { title: 'Automation', href: '/technology-ai/automation' }
+    ]
+  },
+  {
+    title: 'Creative Work',
+    href: '/creative-work',
+    icon: '🎨',
+    children: [
+      { title: 'Art', href: '/creative-work/art' },
+      { title: 'Music', href: '/creative-work/music' },
+      { title: 'Game Development', href: '/creative-work/game-development' },
+      { title: 'Experimental', href: '/creative-work/experimental' }
+    ]
+  },
+  {
+    title: 'Philosophy & Learning',
+    href: '/philosophy-learning',
+    icon: '📚',
+    children: [
+      { title: 'Essays', href: '/philosophy-learning/essays' },
+      { title: 'Book Reviews', href: '/philosophy-learning/book-reviews' },
+      { title: 'Teaching Materials', href: '/philosophy-learning/teaching-materials' }
+    ]
+  },
+  {
+    title: 'Metaphysics',
+    href: '/metaphysics',
+    icon: '✨',
+    children: [
+      { title: 'Esoteric Thinking', href: '/metaphysics/esoteric-thinking' },
+      { title: 'Intuition', href: '/metaphysics/intuition' },
+      { title: 'Problem-Solving', href: '/metaphysics/problem-solving' }
+    ]
+  },
+  {
+    title: 'Services',
+    href: '/services',
+    icon: '🛠️',
+    children: [
+      { title: 'AI & Machine Learning', href: '/services/ai-machine-learning' },
+      { title: 'Automation Solutions', href: '/services/automation-solutions' },
+      { title: 'Web & App Development', href: '/services/web-app-development' },
+      { title: 'Creative Technology', href: '/services/creative-technology' }
+    ]
+  },
+  {
     title: 'Blog',
     href: '/blog',
     icon: '📝',
@@ -35,30 +87,20 @@ const navigation: NavItem[] = [
     href: '/portfolio',
     icon: '💼',
     children: [
-      { title: 'Projects', href: '/portfolio' },
+      { title: 'All Projects', href: '/portfolio' },
       { title: 'Case Studies', href: '/portfolio/case-studies' },
       { title: 'Technologies', href: '/portfolio/technologies' }
     ]
   },
   {
-    title: 'Services',
-    href: '/services',
-    icon: '🛠️',
-    children: [
-      { title: 'Consulting', href: '/services/consulting' },
-      { title: 'Development', href: '/services/development' },
-      { title: 'Training', href: '/services/training' }
-    ]
-  },
-  {
-    title: 'About',
-    href: '/about',
-    icon: '👨‍💻'
-  },
-  {
     title: 'Contact',
     href: '/contact',
     icon: '📧'
+  },
+  {
+    title: 'Subscribe',
+    href: '/subscribe',
+    icon: '📬'
   }
 ]
 
