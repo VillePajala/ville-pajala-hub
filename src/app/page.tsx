@@ -1,87 +1,72 @@
 'use client'
 
 import Link from 'next/link'
-import { Card } from '@/components/ui/Card'
-import { Button } from '@/components/ui/Button'
 import { PageTransition } from '@/components/ui/PageTransition'
-import { Section } from '@/components/sections/Section'
-import { ReactNode } from 'react'
 
 export default function Home() {
   return (
     <PageTransition className="space-y-24">
-      {/* Hero Section with asymmetric layout */}
-      <section className="relative pb-12 pt-8">
-        {/* Background decorations */}
-        <span className="absolute top-0 left-1/4 w-px h-16 bg-gradient-to-b from-indigo-500/50 to-transparent"></span>
-        <span className="absolute top-1/3 right-1/4 w-px h-24 bg-gradient-to-b from-purple-500/50 to-transparent"></span>
+      {/* Hero Section with proper alignment */}
+      <section className="relative flex justify-center items-center pt-24 pb-24 w-full">
+        {/* Curved line decoration */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <svg className="absolute w-full h-full" viewBox="0 0 1200 800" fill="none" preserveAspectRatio="none">
+            <path 
+              d="M0,100 C300,100 400,300 600,300 C800,300 900,100 1200,100 L1200,600 C900,600 800,400 600,400 C400,400 300,600 0,600 Z" 
+              fill="none" 
+              stroke="#0066CC" 
+              strokeWidth="2"
+              opacity="0.5"
+            />
+          </svg>
+        </div>
         
-        <div className="asymmetric-grid items-center">
-          <div className="space-y-8">
-            <div className="space-y-2">
-              <div className="inline-flex items-center space-x-1 rounded-full px-3 py-1 text-xs font-medium bg-indigo-950/60 text-indigo-300 backdrop-blur-md border border-indigo-500/20 mb-4">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
-                </span>
-                <span>Software Developer & Technology Consultant</span>
-              </div>
-              
-              <h1 className="text-6xl md:text-7xl font-bold mb-4 leading-none">
-                <span className="relative">
-                  <span className="absolute -top-6 -left-6 text-2xl text-indigo-400/80">Hello, I'm</span>
-                  <span className="text-gradient">Ville Pajala</span>
-                </span>
-              </h1>
-              
-              <p className="text-xl md:text-2xl max-w-xl text-slate-300/90 leading-relaxed">
-                I craft <span className="text-teal-400 font-medium">elegant solutions</span> to complex problems and build <span className="text-indigo-400 font-medium">impactful digital experiences</span>.
-              </p>
-            </div>
-            
-            <div className="flex flex-wrap gap-5">
-              <Button asChild className="button-primary animate-glow">
-                <Link href="/portfolio">View Portfolio</Link>
-              </Button>
-              <Button asChild className="button-outline">
-                <Link href="/contact">Get in Touch</Link>
-              </Button>
-            </div>
+        {/* Center-aligned content */}
+        <div className="w-full max-w-[540px] px-6">
+          <div className="inline-flex items-center space-x-2 rounded-full px-4 py-1.5 text-xs font-medium bg-indigo-950/60 text-indigo-300 border border-indigo-500/20 mb-6">
+            <span className="relative flex h-2 w-2 mr-1">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+            </span>
+            Software Developer & Technology Consultant
           </div>
           
-          <div className="relative h-full hidden md:block">
-            {/* Decorative geometric elements */}
-            <div className="absolute top-0 right-0 w-64 h-64 rounded-xl border border-indigo-500/10 overflow-hidden backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/5 to-purple-900/5"></div>
-              <div className="w-full h-full bg-[url('/grid-pattern.svg')] bg-repeat opacity-10"></div>
-            </div>
+          <div className="space-y-5">
+            <p className="text-indigo-300 text-xl">Hello, I'm</p>
+            <h1 className="text-7xl font-bold gradient-name leading-tight">
+              Ville Pajala
+            </h1>
             
-            <div className="absolute top-20 right-20 w-48 h-48 rounded-lg border border-purple-500/20 overflow-hidden backdrop-blur-sm animate-float" style={{ animationDelay: '0.5s' }}>
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/5 to-purple-900/5"></div>
-              <div className="w-full h-full bg-[url('/grid-pattern.svg')] bg-repeat opacity-10"></div>
-            </div>
+            <p className="text-xl text-slate-300 mt-6 leading-relaxed">
+              I craft <span className="text-elegant">elegant solutions</span> to complex problems and<br className="hidden md:block" />
+              build <span className="text-impactful">impactful digital experiences</span>.
+            </p>
             
-            <div className="absolute top-40 right-40 w-32 h-32 rounded-lg border border-teal-500/20 overflow-hidden backdrop-blur-sm animate-float" style={{ animationDelay: '1s' }}>
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-900/5 to-indigo-900/5"></div>
-              <div className="w-full h-full bg-[url('/grid-pattern.svg')] bg-repeat opacity-10"></div>
+            <div className="flex flex-wrap gap-4 mt-10">
+              <Link href="/portfolio" className="inline-flex h-12 items-center justify-center rounded-full bg-purple-600 px-8 font-medium text-white transition-colors hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2">
+                View Portfolio
+              </Link>
+              <Link href="/contact" className="inline-flex h-12 items-center justify-center rounded-full bg-transparent px-8 font-medium text-white transition-colors hover:bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2">
+                Get in Touch
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
       {/* Featured Work Section */}
-      <section className="py-12 relative">
+      <section className="flex justify-center py-12 relative">
         {/* Subtle section divider */}
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent"></div>
         
-        <div className="space-y-14">
+        <div className="w-full max-w-6xl px-6 space-y-14">
           <div className="text-center space-y-3">
             <div className="inline-flex items-center space-x-2 text-sm font-medium text-indigo-400">
               <span className="h-px w-5 bg-indigo-400/50"></span>
               <span>FEATURED WORK</span>
               <span className="h-px w-5 bg-indigo-400/50"></span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold">Explore My Digital Universe</h2>
+            <h2 className="text-4xl font-bold">Explore My Digital Universe</h2>
             <p className="text-slate-400 max-w-2xl mx-auto">Discover my content, projects, and professional services</p>
           </div>
           
@@ -168,27 +153,29 @@ export default function Home() {
       </section>
 
       {/* Connect Section */}
-      <section className="relative py-16">
+      <section className="flex justify-center relative py-16">
         {/* Subtle section divider */}
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent"></div>
         
-        <div className="relative overflow-hidden rounded-2xl p-1 backdrop-blur-sm">
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-purple-500/5 to-teal-500/5"></div>
-          <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-repeat opacity-5"></div>
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent"></div>
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent"></div>
-          
-          <div className="relative p-10 lg:p-14 text-center space-y-8">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Let's Create Something <span className="text-gradient">Amazing</span></h2>
-              <p className="text-lg text-slate-300 max-w-2xl mx-auto">
-                Interested in working together or have a question? I'm always open to new opportunities and collaborations.
-              </p>
-            </div>
+        <div className="w-full max-w-6xl px-6">
+          <div className="relative overflow-hidden rounded-2xl p-1 backdrop-blur-sm">
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-purple-500/5 to-teal-500/5"></div>
+            <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-repeat opacity-5"></div>
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent"></div>
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent"></div>
             
-            <Button asChild className="button-primary animate-glow">
-              <Link href="/contact">Get in Touch</Link>
-            </Button>
+            <div className="relative p-10 lg:p-14 text-center space-y-8">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">Let's Create Something <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Amazing</span></h2>
+                <p className="text-lg text-slate-300 max-w-2xl mx-auto">
+                  Interested in working together or have a question? I'm always open to new opportunities and collaborations.
+                </p>
+              </div>
+              
+              <Link href="/contact" className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 px-8 font-medium text-white transition-all hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 shadow-lg shadow-purple-900/20">
+                Get in Touch
+              </Link>
+            </div>
           </div>
         </div>
       </section>
