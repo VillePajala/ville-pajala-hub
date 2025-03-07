@@ -1,14 +1,37 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0c1b;
+  --foreground: #f8fafc;
   
-  /* Custom color variables */
-  --indigo-primary: #4f46e5;
-  --indigo-secondary: #6366f1;
-  --indigo-light: #e0e7ff;
+  /* Refined color palette that works with dark theme */
+  --indigo-primary: #6366f1;
+  --indigo-secondary: #818cf8;
+  --indigo-light: #c7d2fe;
   --indigo-dark: #3730a3;
+  
+  --teal-primary: #14b8a6;
+  --teal-secondary: #5eead4;
+  --purple-primary: #a855f7;
+  --purple-secondary: #d8b4fe;
+  --rose-primary: #f43f5e;
+  --rose-secondary: #fda4af;
+  --amber-primary: #f59e0b;
+  --amber-secondary: #fcd34d;
+  --slate-primary: #64748b;
+  --slate-secondary: #94a3b8;
+  
+  /* Professional gradient backgrounds for dark theme */
+  --gradient-purple-blue: linear-gradient(135deg, var(--purple-primary), var(--indigo-primary));
+  --gradient-teal-blue: linear-gradient(135deg, var(--teal-primary), var(--indigo-primary));
+  --gradient-amber-rose: linear-gradient(135deg, var(--amber-primary), var(--rose-primary));
+  --gradient-slate-purple: linear-gradient(135deg, var(--slate-primary), var(--purple-primary));
+  --gradient-full-spectrum: linear-gradient(to right, #f43f5e, #f59e0b, #14b8a6, #6366f1, #a855f7);
+  
+  /* Font variables - more premium selection */
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
 }
 
 @theme inline {
@@ -25,19 +48,39 @@
     --indigo-primary: #6366f1;
     --indigo-secondary: #818cf8;
     --indigo-light: #312e81;
-    --indigo-dark: #a5b4fc;
+    --indigo-dark: #c7d2fe;
+    
+    /* Dark mode colors */
+    --teal-primary: #14b8a6;
+    --teal-secondary: #5eead4;
+    --purple-primary: #9333ea;
+    --purple-secondary: #c084fc;
+    --rose-primary: #e11d48;
+    --rose-secondary: #fb7185;
+    --amber-primary: #f59e0b;
+    --amber-secondary: #fbbf24;
+    --slate-primary: #64748b;
+    --slate-secondary: #94a3b8;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 
-/* Text gradient styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Text gradient styles - optimized for dark backgrounds */
 .text-gradient-purple {
-  background-image: linear-gradient(to right, #8b5cf6, #a855f7);
+  background-image: linear-gradient(to right, var(--purple-primary), var(--purple-secondary));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -51,31 +94,205 @@ body {
 }
 
 .text-gradient-indigo {
-  background-image: linear-gradient(to right, #6366f1, #818cf8);
+  background-image: linear-gradient(to right, var(--indigo-primary), var(--indigo-secondary));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .text-gradient-teal {
-  background-image: linear-gradient(to right, #14b8a6, #5eead4);
+  background-image: linear-gradient(to right, var(--teal-primary), var(--teal-secondary));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .text-gradient-purple-blue {
-  background-image: linear-gradient(to right, #8b5cf6, #3b82f6);
+  background-image: linear-gradient(to right, var(--purple-primary), var(--indigo-primary));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-/* Custom Sidebar Background */
-nav.sidebar-gradient {
-  background-image: linear-gradient(to bottom, 
-    rgba(var(--card) / 0.95),
-    rgba(var(--primary) / 0.05), 
-    rgba(var(--accent) / 0.05)
+.text-gradient-amber-rose {
+  background-image: linear-gradient(to right, var(--amber-primary), var(--rose-primary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-rainbow {
+  background-image: var(--gradient-full-spectrum);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: rainbow-shift 8s ease infinite;
+}
+
+/* Card gradient backgrounds - dark theme versions */
+.card-gradient-purple-blue {
+  background: rgba(10, 12, 27, 0.6);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  color: white;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.card-gradient-purple-blue::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--purple-primary), var(--indigo-primary));
+  z-index: 2;
+}
+
+.card-gradient-teal-blue {
+  background: rgba(10, 12, 27, 0.6);
+  border: 1px solid rgba(20, 184, 166, 0.2);
+  color: white;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.card-gradient-teal-blue::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--teal-primary), var(--indigo-primary));
+  z-index: 2;
+}
+
+.card-gradient-slate-purple {
+  background: rgba(10, 12, 27, 0.6);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  color: white;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.card-gradient-slate-purple::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--slate-primary), var(--purple-primary));
+  z-index: 2;
+}
+
+/* Glass effect for cards - dark theme version */
+.card-glass {
+  background: rgba(15, 23, 42, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(100, 116, 139, 0.2);
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced card styling for dark theme */
+.enhanced-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(to bottom, rgba(15, 23, 42, 0.7), rgba(10, 12, 27, 0.9));
+}
+
+.enhanced-card:before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at top right,
+    rgba(99, 102, 241, 0.15),
+    transparent 40%
   );
+  opacity: 0.6;
+  z-index: 1;
+}
+
+/* Button styles - dark theme optimized */
+.button-glow {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.button-glow::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(30deg);
+  animation: glow 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  z-index: -1;
+}
+
+@keyframes glow {
+  0% { transform: scale(0) rotate(45deg); opacity: 0; }
+  80% { transform: scale(0) rotate(45deg); opacity: 0.3; }
+  81% { transform: scale(4) rotate(45deg); opacity: 0.6; }
+  100% { transform: scale(50) rotate(45deg); opacity: 0; }
+}
+
+/* Animations */
+@keyframes rainbow-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Icon container */
+.icon-container {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  position: relative;
+  z-index: 1;
+  background: rgba(15, 23, 42, 0.7);
+}
+
+.icon-container::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: var(--gradient-purple-blue);
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+.icon-container svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  width: 24px;
+  height: 24px;
 }

@@ -8,6 +8,7 @@ interface SectionProps {
   description?: string
   children: ReactNode
   className?: string
+  titleClassName?: string
   delay?: number
 }
 
@@ -16,6 +17,7 @@ export function Section({
   description, 
   children, 
   className,
+  titleClassName,
   delay = 0
 }: SectionProps) {
   return (
@@ -25,7 +27,7 @@ export function Section({
       {(title || description) && (
         <div className="space-y-2">
           {title && (
-            <h2 className="text-3xl font-bold tracking-tight">{title}</h2>
+            <h2 className={cn("text-3xl font-bold tracking-tight", titleClassName)}>{title}</h2>
           )}
           {description && (
             <p className="text-xl text-muted-foreground">{description}</p>
