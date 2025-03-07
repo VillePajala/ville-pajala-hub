@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, memo } from 'react'
+import { useState, useEffect, memo, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -16,7 +16,9 @@ import {
   PenTool,
   ChevronDown,
   ChevronUp,
-  ExternalLink
+  ExternalLink,
+  ChevronRight,
+  ChevronLeft
 } from 'lucide-react'
 
 type NavItem = {
@@ -195,7 +197,9 @@ export function Sidebar() {
   const [expandedItems, setExpandedItems] = useState<string[]>([])
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
+  const [isDesktopSidebarOpen, setIsDesktopSidebarOpen] = useState(false)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  
   // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
@@ -214,17 +218,60 @@ export function Sidebar() {
     setExpandedItems(newExpandedItems)
   }, [pathname])
 
-  // Close mobile menu on navigation
+  // Close menus on navigation
   useEffect(() => {
     setIsMobileMenuOpen(false)
+    setIsDesktopSidebarOpen(false)
   }, [pathname])
+  
+  // Auto-hide desktop sidebar after inactivity
+  useEffect(() => {
+    if (isDesktopSidebarOpen) {
+      // Clear any existing timeout
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+      
+      // Set a new timeout for auto-hiding
+      timeoutRef.current = setTimeout(() => {
+        setIsDesktopSidebarOpen(false)
+      }, 5000) // Auto-hide after 5 seconds of inactivity
+    }
+    
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [isDesktopSidebarOpen])
 
   const toggleExpand = (title: string) => {
+    // Reset the auto-hide timer when user interacts with sidebar on desktop
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      
+      if (isDesktopSidebarOpen) {
+        timeoutRef.current = setTimeout(() => {
+          setIsDesktopSidebarOpen(false)
+        }, 5000)
+      }
+    }
+    
     setExpandedItems(prev =>
       prev.includes(title)
         ? prev.filter(item => item !== title)
         : [...prev, title]
     )
+  }
+
+  const resetTimeout = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      
+      timeoutRef.current = setTimeout(() => {
+        setIsDesktopSidebarOpen(false)
+      }, 5000)
+    }
   }
 
   return (
@@ -242,6 +289,15 @@ export function Sidebar() {
         </div>
       </div>
 
+      {/* Desktop Header */}
+      <div className="fixed left-0 right-0 top-0 z-30 hidden h-16 items-center border-b border-border bg-card px-6 md:flex">
+        <div className="flex h-16 w-full items-center justify-between">
+          <Link href="/" className="text-xl font-bold text-foreground hover:text-primary transition-colors">
+            Ville Pajala
+          </Link>
+        </div>
+      </div>
+
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
@@ -254,45 +310,189 @@ export function Sidebar() {
           />
         )}
       </AnimatePresence>
-
-      {/* Sidebar */}
-      <motion.nav
-        className={cn(
-          'fixed left-0 top-0 z-40 h-screen w-64 transform border-r border-border bg-card/95 shadow-lg transition-all duration-300 backdrop-blur-sm',
-          'md:translate-x-0',
-          isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full',
-          isScrolled && 'bg-opacity-90 backdrop-blur-md supports-[backdrop-filter]:bg-opacity-75'
+      
+      {/* Desktop Sidebar Overlay */}
+      <AnimatePresence>
+        {isDesktopSidebarOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-30 hidden bg-background/80 backdrop-blur-sm md:block"
+            onClick={() => setIsDesktopSidebarOpen(false)}
+          />
         )}
+      </AnimatePresence>
+
+      {/* Desktop Sidebar Peek - visible when sidebar is closed */}
+      <div 
+        className="fixed left-0 top-0 z-20 mt-16 hidden h-full w-3 cursor-pointer bg-border/30 hover:bg-border/50 transition-colors md:block"
+        onClick={() => setIsDesktopSidebarOpen(true)}
       >
-        <div className="flex h-full flex-col">
-          {/* Desktop Logo/Header */}
-          <div className="hidden h-16 items-center border-b border-border/50 px-6 md:flex">
-            <Link href="/" className="text-xl font-bold text-foreground hover:text-primary transition-colors">
-              Ville Pajala
-            </Link>
-          </div>
-
-          {/* Navigation Items */}
-          <div className="flex-1 space-y-1 overflow-y-auto p-4 pt-20 md:pt-4">
-            {navigation.map((item) => (
-              <NavItemComponent 
-                key={item.title}
-                item={item}
-                pathname={pathname}
-                expandedItems={expandedItems}
-                toggleExpand={toggleExpand}
-              />
-            ))}
-          </div>
-
-          {/* Footer */}
-          <div className="border-t border-border/50 p-4 bg-background/30">
-            <div className="flex items-center justify-between text-sm text-muted-foreground">
-              <span>© 2024 Ville Pajala</span>
-            </div>
-          </div>
+        <div className="absolute left-0 top-1/2 flex h-12 w-6 -translate-y-1/2 items-center justify-center rounded-r-md bg-primary/70 text-primary-foreground shadow-md hover:bg-primary/90 transition-all">
+          <ChevronRight className="h-5 w-5" />
         </div>
-      </motion.nav>
+      </div>
+
+      {/* Mobile Menu Dropdown */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 40 }}
+            className="fixed left-0 right-0 top-16 z-40 max-h-[calc(100vh-4rem)] overflow-y-auto border-b border-border bg-card/95 shadow-lg backdrop-blur-sm md:hidden"
+          >
+            <div className="flex flex-col p-4 space-y-1">
+              {navigation.map((item) => (
+                <div key={item.title} className="py-1">
+                  {item.children ? (
+                    <div>
+                      <button
+                        onClick={() => toggleExpand(item.title)}
+                        className={cn(
+                          'flex w-full items-center justify-between rounded-md px-3 py-2',
+                          pathname.startsWith(item.href)
+                            ? 'bg-primary/15 text-primary font-medium'
+                            : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
+                        )}
+                      >
+                        <div className="flex items-center gap-3">
+                          {item.icon}
+                          <span>{item.title}</span>
+                        </div>
+                        {expandedItems.includes(item.title) ? (
+                          <ChevronUp className="h-4 w-4" />
+                        ) : (
+                          <ChevronDown className="h-4 w-4" />
+                        )}
+                      </button>
+                      <AnimatePresence>
+                        {expandedItems.includes(item.title) && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="ml-6 mt-1 space-y-1 border-l border-border pl-2">
+                              {item.children.map((child) => (
+                                <Link
+                                  key={child.title}
+                                  href={child.href}
+                                  className={cn(
+                                    'block rounded-md px-3 py-2 text-sm transition-colors duration-200',
+                                    pathname === child.href
+                                      ? 'bg-primary/15 text-primary font-medium'
+                                      : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
+                                  )}
+                                >
+                                  {child.title}
+                                </Link>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        'flex items-center gap-3 rounded-md px-3 py-2',
+                        pathname === item.href
+                          ? 'bg-primary/15 text-primary font-medium'
+                          : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
+                      )}
+                    >
+                      {item.icon}
+                      <span>{item.title}</span>
+                    </Link>
+                  )}
+                </div>
+              ))}
+            </div>
+            <div className="border-t border-border/50 p-4 bg-background/30">
+              <div className="flex items-center justify-between text-sm text-muted-foreground">
+                <span>© 2024 Ville Pajala</span>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
+      {/* Desktop Sidebar */}
+      <AnimatePresence>
+        {(isDesktopSidebarOpen || typeof window === 'undefined') && (
+          <motion.nav
+            initial={{ x: -320 }}
+            animate={{ x: 0 }}
+            exit={{ x: -320 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className={cn(
+              'fixed left-0 top-0 z-40 hidden h-screen w-64 border-r border-border bg-card/95 shadow-lg backdrop-blur-sm md:block',
+              isScrolled && 'bg-opacity-90 backdrop-blur-md supports-[backdrop-filter]:bg-opacity-75'
+            )}
+            onMouseEnter={() => {
+              // Reset the timeout when mouse enters sidebar
+              if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current)
+              }
+            }}
+            onMouseLeave={() => {
+              // Set timeout when mouse leaves sidebar
+              timeoutRef.current = setTimeout(() => {
+                setIsDesktopSidebarOpen(false)
+              }, 5000)
+            }}
+          >
+            <div className="flex h-full flex-col">
+              {/* Desktop Logo/Header */}
+              <div className="h-16 items-center border-b border-border/50 px-6 flex justify-between">
+                <Link href="/" className="text-xl font-bold text-foreground hover:text-primary transition-colors">
+                  Ville Pajala
+                </Link>
+                <button 
+                  onClick={() => setIsDesktopSidebarOpen(false)}
+                  className="flex h-8 w-8 items-center justify-center rounded-md hover:bg-muted/50"
+                  aria-label="Close sidebar"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+              </div>
+
+              {/* Navigation Items - Desktop */}
+              <div 
+                className="flex-1 space-y-1 overflow-y-auto p-4 pt-4"
+                onClick={(e) => {
+                  // Reset timeout when interacting with nav items
+                  resetTimeout();
+                  e.stopPropagation(); // Prevent clicks from bubbling to overlay
+                }}
+              >
+                {navigation.map((item) => (
+                  <NavItemComponent 
+                    key={item.title}
+                    item={item}
+                    pathname={pathname}
+                    expandedItems={expandedItems}
+                    toggleExpand={toggleExpand}
+                  />
+                ))}
+              </div>
+
+              {/* Footer - Desktop */}
+              <div className="border-t border-border/50 p-4 bg-background/30">
+                <div className="flex items-center justify-between text-sm text-muted-foreground">
+                  <span>© 2024 Ville Pajala</span>
+                </div>
+              </div>
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </>
   )
 } 
