@@ -6,52 +6,52 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/Button'
 import Link from 'next/link'
 
-export default function TechnologyAIPage() {
+export default function PortfolioPage() {
   return (
     <PageTransition>
       <Section
-        title="Technology & AI"
-        description="Exploring the intersection of technology, artificial intelligence, and their applications."
+        title="Portfolio"
+        description="A showcase of my projects, work experience, and technical expertise."
       >
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <Card>
             <CardHeader>
-              <CardTitle>AI Projects</CardTitle>
+              <CardTitle>All Projects</CardTitle>
               <CardDescription>
-                Innovative projects leveraging artificial intelligence and machine learning technologies.
+                Browse through my complete collection of projects and works.
               </CardDescription>
             </CardHeader>
             <CardFooter>
               <Button asChild>
-                <Link href="/technology-ai/ai-projects">Explore</Link>
+                <Link href="/portfolio">View All</Link>
               </Button>
             </CardFooter>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle>Web Development</CardTitle>
+              <CardTitle>Case Studies</CardTitle>
               <CardDescription>
-                Modern web development approaches, frameworks, and best practices.
+                Detailed analysis of selected projects with in-depth insights.
               </CardDescription>
             </CardHeader>
             <CardFooter>
               <Button asChild>
-                <Link href="/technology-ai/web-development">Explore</Link>
+                <Link href="/portfolio/case-studies">Explore</Link>
               </Button>
             </CardFooter>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle>Automation</CardTitle>
+              <CardTitle>Technologies</CardTitle>
               <CardDescription>
-                Streamlining processes and workflows through automation solutions.
+                Overview of the technologies and tools I specialize in.
               </CardDescription>
             </CardHeader>
             <CardFooter>
               <Button asChild>
-                <Link href="/technology-ai/automation">Explore</Link>
+                <Link href="/portfolio/technologies">Explore</Link>
               </Button>
             </CardFooter>
           </Card>

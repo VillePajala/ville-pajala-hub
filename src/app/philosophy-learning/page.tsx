@@ -13,79 +13,52 @@ export default function PhilosophyLearningPage() {
         title="Philosophy & Learning"
         description="Deep explorations of ideas, learning resources, and philosophical inquiries."
       >
-        <div className="space-y-8">
-          <p className="text-lg text-muted-foreground">
-            This section explores the intersection of philosophy, education, and personal growth. Here you'll find essays, book reviews, teaching materials, and other resources dedicated to deeper thinking and learning.
-          </p>
-          
-          <div className="grid gap-8 md:grid-cols-3">
-            <Card>
-              <CardHeader>
-                <CardTitle>Essays</CardTitle>
-                <CardDescription>
-                  Original philosophical essays and thought explorations.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Deep dive into a collection of essays covering topics from epistemology and cognitive science to ethics and the philosophy of technology.
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Button asChild>
-                  <Link href="/philosophy-learning/essays">Read Essays</Link>
-                </Button>
-              </CardFooter>
-            </Card>
+        <div className="mb-6 text-lg text-muted-foreground">
+          <p>This section explores the intersection of philosophy, education, and personal growth.</p>
+        </div>
+        
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Essays</CardTitle>
+              <CardDescription>
+                Personal and philosophical essays on various topics.
+              </CardDescription>
+            </CardHeader>
+            <CardFooter>
+              <Button asChild>
+                <Link href="/philosophy-learning/essays">Explore</Link>
+              </Button>
+            </CardFooter>
+          </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Book Reviews</CardTitle>
-                <CardDescription>
-                  Critical analyses and personal reflections on impactful books.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Explore detailed reviews of books that have shaped my thinking, with analyses that go beyond simple summaries to engage with core ideas.
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Button asChild>
-                  <Link href="/philosophy-learning/book-reviews">Read Reviews</Link>
-                </Button>
-              </CardFooter>
-            </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Book Reviews</CardTitle>
+              <CardDescription>
+                Critical analysis and reflections on significant books.
+              </CardDescription>
+            </CardHeader>
+            <CardFooter>
+              <Button asChild>
+                <Link href="/philosophy-learning/book-reviews">Explore</Link>
+              </Button>
+            </CardFooter>
+          </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Teaching Materials</CardTitle>
-                <CardDescription>
-                  Educational resources and teaching frameworks.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Access a library of teaching materials, including curricula, lecture notes, and exercises designed to facilitate learning and critical thinking.
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Button asChild>
-                  <Link href="/philosophy-learning/teaching-materials">View Materials</Link>
-                </Button>
-              </CardFooter>
-            </Card>
-          </div>
-          
-          <div className="rounded-lg border border-border bg-secondary/30 p-6">
-            <h3 className="mb-2 text-xl font-semibold">Join the Conversation</h3>
-            <p className="mb-4 text-muted-foreground">
-              Philosophy thrives on dialogue. Feel free to engage with these ideas through comments, or reach out directly to discuss further.
-            </p>
-            <Button asChild>
-              <Link href="/contact">Get in Touch</Link>
-            </Button>
-          </div>
+          <Card>
+            <CardHeader>
+              <CardTitle>Teaching Materials</CardTitle>
+              <CardDescription>
+                Resources, guides, and materials for educational purposes.
+              </CardDescription>
+            </CardHeader>
+            <CardFooter>
+              <Button asChild>
+                <Link href="/philosophy-learning/teaching-materials">Explore</Link>
+              </Button>
+            </CardFooter>
+          </Card>
         </div>
       </Section>
     </PageTransition>

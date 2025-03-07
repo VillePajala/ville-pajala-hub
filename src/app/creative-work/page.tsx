@@ -13,22 +13,17 @@ export default function CreativeWorkPage() {
         title="Creative Work"
         description="A showcase of art, music, game development, and experimental creative projects."
       >
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <Card>
             <CardHeader>
               <CardTitle>Art</CardTitle>
               <CardDescription>
-                Visual art expressions across different media and techniques.
+                Visual artwork, digital illustrations, and design projects.
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">
-                Explore digital and traditional art pieces that blend technology with creative expression.
-              </p>
-            </CardContent>
             <CardFooter>
               <Button asChild>
-                <Link href="/creative-work/art">View Art Projects</Link>
+                <Link href="/creative-work/art">Explore</Link>
               </Button>
             </CardFooter>
           </Card>
@@ -37,17 +32,12 @@ export default function CreativeWorkPage() {
             <CardHeader>
               <CardTitle>Music</CardTitle>
               <CardDescription>
-                Compositions, sound design, and audio experiments.
+                Original compositions, musical projects, and audio experiments.
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">
-                Listen to original compositions and sound design projects that explore the boundaries of audio.
-              </p>
-            </CardContent>
             <CardFooter>
               <Button asChild>
-                <Link href="/creative-work/music">Explore Music</Link>
+                <Link href="/creative-work/music">Explore</Link>
               </Button>
             </CardFooter>
           </Card>
@@ -56,17 +46,12 @@ export default function CreativeWorkPage() {
             <CardHeader>
               <CardTitle>Game Development</CardTitle>
               <CardDescription>
-                Interactive experiences, games, and simulations.
+                Game design and development projects and prototypes.
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">
-                Discover game development projects that combine programming, art, and design into interactive experiences.
-              </p>
-            </CardContent>
             <CardFooter>
               <Button asChild>
-                <Link href="/creative-work/game-development">Play & Explore</Link>
+                <Link href="/creative-work/game-development">Explore</Link>
               </Button>
             </CardFooter>
           </Card>
@@ -75,17 +60,12 @@ export default function CreativeWorkPage() {
             <CardHeader>
               <CardTitle>Experimental</CardTitle>
               <CardDescription>
-                Innovative and experimental projects pushing creative boundaries.
+                Creative experiments that push boundaries and explore new ideas.
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">
-                Experience cutting-edge experiments that blend different creative disciplines with emerging technologies.
-              </p>
-            </CardContent>
             <CardFooter>
               <Button asChild>
-                <Link href="/creative-work/experimental">Explore Experiments</Link>
+                <Link href="/creative-work/experimental">Explore</Link>
               </Button>
             </CardFooter>
           </Card>
