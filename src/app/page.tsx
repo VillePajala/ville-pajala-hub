@@ -11,28 +11,185 @@ export default function Home() {
         {/* Curved line decoration */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
           <svg className="absolute w-full h-full" viewBox="0 0 1200 800" fill="none" preserveAspectRatio="none">
+            {/* Primary curve */}
             <path 
-              d="M0,100 C300,100 400,300 600,300 C800,300 900,100 1200,100 L1200,600 C900,600 800,400 600,400 C400,400 300,600 0,600 Z" 
+              d="M0,50 C300,50 400,270 600,270 C800,270 1000,50 1200,50 L1200,650 C1000,650 800,430 600,430 C400,430 200,650 0,650 Z" 
               fill="none" 
               stroke="url(#blue-gradient)" 
               strokeWidth="2"
               opacity="0.6"
+              filter="url(#glow)"
             >
               <animate 
                 attributeName="d" 
-                dur="20s" 
+                dur="15s" 
                 repeatCount="indefinite"
                 values="
-                  M0,100 C300,100 400,300 600,300 C800,300 900,100 1200,100 L1200,600 C900,600 800,400 600,400 C400,400 300,600 0,600 Z;
-                  M0,150 C300,100 400,350 600,250 C800,200 900,150 1200,100 L1200,600 C900,550 800,450 600,450 C400,350 300,550 0,600 Z;
-                  M0,100 C300,100 400,300 600,300 C800,300 900,100 1200,100 L1200,600 C900,600 800,400 600,400 C400,400 300,600 0,600 Z"
-                />
+                  M0,50 C300,50 400,270 600,270 C800,270 1000,50 1200,50 L1200,650 C1000,650 800,430 600,430 C400,430 200,650 0,650 Z;
+                  M0,100 C200,100 400,270 600,270 C800,270 1000,100 1200,100 L1200,550 C1000,550 800,400 600,400 C400,400 200,550 0,550 Z;
+                  M0,50 C300,50 400,270 600,270 C800,270 1000,50 1200,50 L1200,650 C1000,650 800,430 600,430 C400,430 200,650 0,650 Z"
+                calcMode="spline"
+                keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"
+              />
+              <animate
+                attributeName="opacity"
+                dur="10s"
+                repeatCount="indefinite"
+                values="0.6;0.4;0.6"
+                calcMode="spline"
+                keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"
+              />
             </path>
+            
+            {/* Secondary curve with offset */}
+            <path 
+              d="M0,70 C200,70 400,290 600,290 C800,290 1000,70 1200,70 L1200,630 C1000,630 800,410 600,410 C400,410 200,630 0,630 Z" 
+              fill="none" 
+              stroke="url(#purple-gradient)" 
+              strokeWidth="1.5"
+              opacity="0.4"
+              strokeDasharray="5,5"
+              filter="url(#glow)"
+            >
+              <animate 
+                attributeName="d" 
+                dur="18s" 
+                repeatCount="indefinite"
+                values="
+                  M0,70 C200,70 400,290 600,290 C800,290 1000,70 1200,70 L1200,630 C1000,630 800,410 600,410 C400,410 200,630 0,630 Z;
+                  M0,120 C200,120 400,290 600,290 C800,290 1000,120 1200,120 L1200,550 C1000,550 800,400 600,400 C400,400 200,550 0,550 Z;
+                  M0,70 C200,70 400,290 600,290 C800,290 1000,70 1200,70 L1200,630 C1000,630 800,410 600,410 C400,410 200,630 0,630 Z"
+                calcMode="spline"
+                keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"
+              />
+              <animate
+                attributeName="strokeDashoffset"
+                dur="8s"
+                repeatCount="indefinite"
+                values="0;30;0"
+                calcMode="spline"
+                keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"
+              />
+            </path>
+            
+            {/* Glow particles along the paths */}
+            <g className="glow-particles">
+              <circle r="3" fill="#4F46E5" opacity="0.7">
+                <animateMotion dur="8s" repeatCount="indefinite" path="M0,50 C300,50 400,270 600,270 C800,270 900,50 1200,50" rotate="auto">
+                  <mpath href="#motionPath" />
+                </animateMotion>
+                <animate attributeName="opacity" dur="3s" repeatCount="indefinite" values="0;0.7;0" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
+                <animate attributeName="r" dur="4s" repeatCount="indefinite" values="2;4;2" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
+              </circle>
+              
+              <circle r="3" fill="#4F46E5" opacity="0.7">
+                <animateMotion dur="10s" repeatCount="indefinite" path="M0,50 C300,50 400,270 600,270 C800,270 900,50 1200,50" rotate="auto">
+                  <mpath href="#motionPath" />
+                </animateMotion>
+                <animate attributeName="opacity" dur="4s" repeatCount="indefinite" values="0;0.7;0" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
+                <animate attributeName="r" dur="5s" repeatCount="indefinite" values="2;4;2" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
+              </circle>
+              
+              <circle r="3" fill="#4F46E5" opacity="0.7">
+                <animateMotion dur="12s" repeatCount="indefinite" path="M0,50 C300,50 400,270 600,270 C800,270 900,50 1200,50" rotate="auto">
+                  <mpath href="#motionPath" />
+                </animateMotion>
+                <animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0.7;0" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
+                <animate attributeName="r" dur="6s" repeatCount="indefinite" values="2;4;2" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
+              </circle>
+              
+              <circle r="3" fill="#8B5CF6" opacity="0.7">
+                <animateMotion dur="14s" repeatCount="indefinite" path="M0,50 C300,50 400,270 600,270 C800,270 900,50 1200,50" rotate="auto">
+                  <mpath href="#motionPath" />
+                </animateMotion>
+                <animate attributeName="opacity" dur="6s" repeatCount="indefinite" values="0;0.7;0" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
+                <animate attributeName="r" dur="7s" repeatCount="indefinite" values="2;4;2" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
+              </circle>
+              
+              <circle r="3" fill="#8B5CF6" opacity="0.7">
+                <animateMotion dur="16s" repeatCount="indefinite" path="M0,50 C300,50 400,270 600,270 C800,270 900,50 1200,50" rotate="auto">
+                  <mpath href="#motionPath" />
+                </animateMotion>
+                <animate attributeName="opacity" dur="7s" repeatCount="indefinite" values="0;0.7;0" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
+                <animate attributeName="r" dur="8s" repeatCount="indefinite" values="2;4;2" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
+              </circle>
+              
+              <circle r="3" fill="#D946EF" opacity="0.7">
+                <animateMotion dur="18s" repeatCount="indefinite" path="M0,50 C300,50 400,270 600,270 C800,270 900,50 1200,50" rotate="auto">
+                  <mpath href="#motionPath" />
+                </animateMotion>
+                <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0.7;0" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
+                <animate attributeName="r" dur="9s" repeatCount="indefinite" values="2;4;2" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
+              </circle>
+            </g>
+            
+            {/* Hidden path for motion */}
+            <path 
+              id="motionPath" 
+              d="M0,50 C300,50 400,270 600,270 C800,270 900,50 1200,50"
+              opacity="0"
+            />
+            
+            {/* Bottom curve motion path */}
+            <path 
+              id="bottomMotionPath" 
+              d="M1200,650 C1000,650 800,430 600,430 C400,430 200,650 0,650"
+              opacity="0"
+            />
+            
+            {/* Bottom curve particles */}
+            <g className="glow-particles">
+              <circle r="3" fill="#0EA5E9" opacity="0.7">
+                <animateMotion dur="9s" repeatCount="indefinite" path="M1200,650 C1000,650 800,430 600,430 C400,430 200,650 0,650" rotate="auto">
+                  <mpath href="#bottomMotionPath" />
+                </animateMotion>
+                <animate attributeName="opacity" dur="4s" repeatCount="indefinite" values="0;0.7;0" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
+                <animate attributeName="r" dur="5s" repeatCount="indefinite" values="2;4;2" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
+              </circle>
+              
+              <circle r="3" fill="#0EA5E9" opacity="0.7">
+                <animateMotion dur="11s" repeatCount="indefinite" path="M1200,650 C1000,650 800,430 600,430 C400,430 200,650 0,650" rotate="auto">
+                  <mpath href="#bottomMotionPath" />
+                </animateMotion>
+                <animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0.7;0" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
+                <animate attributeName="r" dur="6s" repeatCount="indefinite" values="2;4;2" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
+              </circle>
+              
+              <circle r="3" fill="#0EA5E9" opacity="0.7">
+                <animateMotion dur="13s" repeatCount="indefinite" path="M1200,650 C1000,650 800,430 600,430 C400,430 200,650 0,650" rotate="auto">
+                  <mpath href="#bottomMotionPath" />
+                </animateMotion>
+                <animate attributeName="opacity" dur="6s" repeatCount="indefinite" values="0;0.7;0" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
+                <animate attributeName="r" dur="7s" repeatCount="indefinite" values="2;4;2" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
+              </circle>
+              
+              <circle r="3" fill="#4F46E5" opacity="0.7">
+                <animateMotion dur="15s" repeatCount="indefinite" path="M1200,650 C1000,650 800,430 600,430 C400,430 200,650 0,650" rotate="auto">
+                  <mpath href="#bottomMotionPath" />
+                </animateMotion>
+                <animate attributeName="opacity" dur="7s" repeatCount="indefinite" values="0;0.7;0" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
+                <animate attributeName="r" dur="8s" repeatCount="indefinite" values="2;4;2" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" />
+              </circle>
+            </g>
+            
+            {/* Gradients */}
             <defs>
               <linearGradient id="blue-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#4F46E5" />
                 <stop offset="100%" stopColor="#0EA5E9" />
               </linearGradient>
+              
+              <linearGradient id="purple-gradient" x1="100%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#8B5CF6" />
+                <stop offset="100%" stopColor="#D946EF" />
+              </linearGradient>
+              
+              <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="6" result="blur" />
+                <feFlood flood-color="#4F46E5" flood-opacity="0.3" result="color" />
+                <feComposite in="color" in2="blur" operator="in" result="glow" />
+                <feComposite in="SourceGraphic" in2="glow" operator="over" />
+              </filter>
             </defs>
           </svg>
         </div>
@@ -50,10 +207,9 @@ export default function Home() {
           <div className="space-y-5">
             <p className="text-indigo-300 text-xl font-medium">Hello, I'm</p>
             <div>
-              <h1 className="text-7xl font-bold gradient-name leading-tight drop-shadow-lg">
+              <h1 className="text-8xl font-bold gradient-name leading-tight drop-shadow-lg mb-2">
                 Ville Pajala
               </h1>
-              <div className="h-1 w-32 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full mx-auto mt-2"></div>
             </div>
             
             <p className="text-xl text-slate-200 mt-6 leading-relaxed">
