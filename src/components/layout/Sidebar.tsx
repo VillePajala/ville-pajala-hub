@@ -2,7 +2,7 @@
 
 import { useState, useEffect, memo, useRef } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { MenuButton } from '@/components/ui/MenuButton'
@@ -127,11 +127,20 @@ const NavItemComponent = memo(({ item, pathname, expandedItems, toggleExpand }: 
 }) => {
   const isExpanded = expandedItems.includes(item.title)
   const isActive = pathname === item.href
+  const router = useRouter()
+  
+  const handleClick = () => {
+    if (item.children) {
+      toggleExpand(item.title)
+    } else {
+      router.push(item.href)
+    }
+  }
   
   return (
     <div className="mb-2">
       <button
-        onClick={() => item.children && toggleExpand(item.title)}
+        onClick={handleClick}
         className={cn(
           'group flex w-full items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200',
           isActive
