@@ -19,25 +19,27 @@
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
     
-    --muted: 223 47% 11%;
+    --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
     
-    --accent: 224 71% 4%;
+    --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
     
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
     
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
     /* Custom color variables */
-    --purple-name: #bb8aff;
-    --teal-highlight: #52e3c2;
-    --indigo-highlight: #8aa2ff;
+    --purple-name: #a855f7;
+    --teal-highlight: #14b8a6;
+    --indigo-highlight: #6366f1;
+    
+    --animation-primary: bounce 5s ease-in-out infinite;
   }
 }
 
@@ -108,18 +110,39 @@
   /* Custom text colors to match design */
   .text-elegant {
     color: var(--teal-highlight);
+    text-shadow: 0 0 20px rgba(20, 184, 166, 0.2);
+    font-weight: 500;
   }
 
   .text-impactful {
     color: var(--indigo-highlight);
+    text-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+    font-weight: 500;
   }
 
   /* Name gradient */
   .gradient-name {
-    background: linear-gradient(to right, var(--purple-name), #cea5ff);
+    background-image: linear-gradient(
+      to right, 
+      #a855f7, 
+      #d8b4fe,
+      #a78bfa,
+      #a855f7
+    );
+    background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+    animation: gradientFlow 8s ease infinite;
+    display: inline-block;
+    text-shadow: none;
+  }
+  
+  @keyframes gradientFlow {
+    0% { background-position: 0% center; }
+    50% { background-position: 100% center; }
+    100% { background-position: 0% center; }
   }
 }
 

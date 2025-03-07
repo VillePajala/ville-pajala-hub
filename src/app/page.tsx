@@ -7,23 +7,39 @@ export default function Home() {
   return (
     <PageTransition className="space-y-24">
       {/* Hero Section with proper alignment */}
-      <section className="relative flex justify-center items-center pt-24 pb-24 w-full">
+      <section className="relative flex justify-center items-center pt-32 pb-32 w-full">
         {/* Curved line decoration */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
           <svg className="absolute w-full h-full" viewBox="0 0 1200 800" fill="none" preserveAspectRatio="none">
             <path 
               d="M0,100 C300,100 400,300 600,300 C800,300 900,100 1200,100 L1200,600 C900,600 800,400 600,400 C400,400 300,600 0,600 Z" 
               fill="none" 
-              stroke="#0066CC" 
+              stroke="url(#blue-gradient)" 
               strokeWidth="2"
-              opacity="0.5"
-            />
+              opacity="0.6"
+            >
+              <animate 
+                attributeName="d" 
+                dur="20s" 
+                repeatCount="indefinite"
+                values="
+                  M0,100 C300,100 400,300 600,300 C800,300 900,100 1200,100 L1200,600 C900,600 800,400 600,400 C400,400 300,600 0,600 Z;
+                  M0,150 C300,100 400,350 600,250 C800,200 900,150 1200,100 L1200,600 C900,550 800,450 600,450 C400,350 300,550 0,600 Z;
+                  M0,100 C300,100 400,300 600,300 C800,300 900,100 1200,100 L1200,600 C900,600 800,400 600,400 C400,400 300,600 0,600 Z"
+                />
+            </path>
+            <defs>
+              <linearGradient id="blue-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#4F46E5" />
+                <stop offset="100%" stopColor="#0EA5E9" />
+              </linearGradient>
+            </defs>
           </svg>
         </div>
         
         {/* Center-aligned content */}
         <div className="w-full max-w-[540px] px-6 text-center">
-          <div className="inline-flex items-center space-x-2 rounded-full px-4 py-1.5 text-xs font-medium bg-indigo-950/60 text-indigo-300 border border-indigo-500/20 mb-6">
+          <div className="inline-flex items-center space-x-2 rounded-full px-4 py-1.5 text-xs font-medium bg-indigo-950/60 text-indigo-300 border border-indigo-500/20 mb-6 backdrop-blur-sm shadow-lg">
             <span className="relative flex h-2 w-2 mr-1">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
@@ -32,21 +48,24 @@ export default function Home() {
           </div>
           
           <div className="space-y-5">
-            <p className="text-indigo-300 text-xl">Hello, I'm</p>
-            <h1 className="text-7xl font-bold gradient-name leading-tight">
-              Ville Pajala
-            </h1>
+            <p className="text-indigo-300 text-xl font-medium">Hello, I'm</p>
+            <div>
+              <h1 className="text-7xl font-bold gradient-name leading-tight drop-shadow-lg">
+                Ville Pajala
+              </h1>
+              <div className="h-1 w-32 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full mx-auto mt-2"></div>
+            </div>
             
-            <p className="text-xl text-slate-300 mt-6 leading-relaxed">
-              I craft <span className="text-elegant">elegant solutions</span> to complex problems and<br className="hidden md:block" />
-              build <span className="text-impactful">impactful digital experiences</span>.
+            <p className="text-xl text-slate-200 mt-6 leading-relaxed">
+              I craft <span className="text-elegant font-medium">elegant solutions</span> to complex problems and<br className="hidden md:block" />
+              build <span className="text-impactful font-medium">impactful digital experiences</span>.
             </p>
             
             <div className="flex flex-wrap justify-center gap-4 mt-10">
-              <Link href="/portfolio" className="inline-flex h-12 items-center justify-center rounded-full bg-purple-600 px-8 font-medium text-white transition-colors hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2">
+              <Link href="/portfolio" className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 px-8 font-medium text-white transition-all duration-300 hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 shadow-lg hover:shadow-purple-500/20 hover:scale-105">
                 View Portfolio
               </Link>
-              <Link href="/contact" className="inline-flex h-12 items-center justify-center rounded-full bg-transparent px-8 font-medium text-white transition-colors hover:bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2">
+              <Link href="/contact" className="inline-flex h-12 items-center justify-center rounded-full bg-transparent px-8 font-medium text-white transition-all duration-300 hover:bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 shadow-md hover:shadow-white/10 hover:border-white/40 hover:scale-105 backdrop-blur-sm">
                 Get in Touch
               </Link>
             </div>
