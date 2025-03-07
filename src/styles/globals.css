@@ -4,16 +4,16 @@
 
 @layer base {
   :root {
-    --background: 226 85% 5.5%;
+    --background: 230 85% 4%;
     --foreground: 210 40% 98%;
     
-    --card: 224 71% 4%;
+    --card: 224 71% 5%;
     --card-foreground: 213 31% 91%;
     
     --popover: 224 71% 4%;
     --popover-foreground: 215 20.2% 65.1%;
     
-    --primary: 263 75% 50%;
+    --primary: 264 75% 55%;
     --primary-foreground: 210 40% 98%;
     
     --secondary: 217.2 32.6% 17.5%;
@@ -32,7 +32,7 @@
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
     
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
 }
 
@@ -43,18 +43,19 @@
   
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1;
-    font-family: var(--font-body, system-ui, sans-serif);
-    position: relative;
-    background-color: #0a0c1b;
+    background-color: #050614;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    line-height: 1.7;
   }
   
-  /* Remove the background image pattern for cleaner dark theme */
+  /* Remove the background image pattern for cleaner design */
   body::before {
     content: none;
   }
   
-  /* Add a nice gradient overlay for depth */
+  /* Background gradient overlay */
   body::after {
     content: '';
     position: fixed;
@@ -63,15 +64,17 @@
     width: 100%;
     height: 100%;
     z-index: -1;
-    background: radial-gradient(circle at center, rgba(99, 102, 241, 0.05) 0%, rgba(10, 12, 27, 0.2) 100%);
+    background: radial-gradient(ellipse at top right, rgba(99, 102, 241, 0.1), rgba(5, 6, 20, 0) 70%),
+                radial-gradient(ellipse at bottom left, rgba(147, 51, 234, 0.1), rgba(5, 6, 20, 0) 70%);
     pointer-events: none;
   }
   
   /* Typography */
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading, 'Playfair Display', serif);
-    @apply text-foreground font-bold;
+    font-family: 'Crimson Pro', serif;
+    @apply text-foreground font-semibold;
     letter-spacing: -0.02em;
+    line-height: 1.2;
   }
   
   h1 {
@@ -117,21 +120,80 @@ div.overflow-y-auto {
   min-height: 100vh;
 }
 
-/* Card styles for dark theme */
+/* Card styles */
 .card-dark {
-  @apply bg-slate-900/60 border border-slate-800 shadow-lg rounded-xl;
+  @apply bg-card/60 backdrop-blur-md border border-white/5 shadow-xl rounded-xl relative overflow-hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Button styles for dark theme */
+.card-dark:hover {
+  transform: translateY(-10px);
+  @apply border-white/10 shadow-2xl shadow-indigo-950/20;
+}
+
+.card-dark::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, rgba(147, 51, 234, 0.7), rgba(99, 102, 241, 0.7), rgba(20, 184, 166, 0.7), transparent);
+  opacity: 0.7;
+}
+
+.card-dark::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.02), transparent);
+  pointer-events: none;
+}
+
+/* Button styles */
 .button-primary {
-  @apply bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg px-4 py-2 shadow-md transition-all duration-300;
+  @apply bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium rounded-full px-6 py-3 shadow-lg shadow-indigo-900/30 transition-all duration-300;
 }
 
 .button-outline {
-  @apply border-2 border-slate-700 hover:border-indigo-500 text-white hover:text-indigo-300 font-medium rounded-lg px-4 py-2 shadow-md transition-all duration-300;
+  @apply border border-white/10 hover:border-indigo-500 text-white hover:text-indigo-300 font-medium rounded-full px-6 py-3 shadow-md transition-all duration-300;
 }
 
-/* Allows animation to work properly */
-body * {
-  opacity: 1 !important;
+/* Animation effects */
+.animate-glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 10px -5px rgba(99, 102, 241, 0.5);
+  }
+  to {
+    box-shadow: 0 0 20px 5px rgba(99, 102, 241, 0.7);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #9333ea, #6366f1, #14b8a6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% auto;
+  animation: textShine 5s ease infinite;
+}
+
+@keyframes textShine {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 } 
