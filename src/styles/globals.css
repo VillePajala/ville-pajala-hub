@@ -44,6 +44,42 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
+    background-color: hsl(var(--background));
+    position: relative;
+  }
+  
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: url('/images/backgrounds/background_image.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.15; /* Increased from 0.08 to make background more visible */
+    pointer-events: none;
+  }
+  
+  /* Dark mode specific styling */
+  .dark body::before {
+    opacity: 0.12; /* Increased from 0.05 for dark mode */
+  }
+  
+  /* Add a nice gradient overlay for depth */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(circle at center, transparent 0%, hsl(var(--background)) 90%);
+    pointer-events: none;
   }
   
   /* Typography */
@@ -82,4 +118,10 @@
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* Ensure content always has a minimum height */
+main, 
+div.overflow-y-auto {
+  min-height: 100vh;
 } 
