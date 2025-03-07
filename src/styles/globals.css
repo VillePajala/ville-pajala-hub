@@ -60,13 +60,13 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    opacity: 0.15; /* Increased from 0.08 to make background more visible */
+    opacity: 0.5; /* Increased from 0.3 to make background more visible */
     pointer-events: none;
   }
   
   /* Dark mode specific styling */
   .dark body::before {
-    opacity: 0.12; /* Increased from 0.05 for dark mode */
+    opacity: 0.4; /* Increased from 0.25 for dark mode */
   }
   
   /* Add a nice gradient overlay for depth */
@@ -124,4 +124,16 @@
 main, 
 div.overflow-y-auto {
   min-height: 100vh;
+}
+
+/* Ensure all cards remain fully opaque */
+.bg-card\/70 .rounded-lg.border.bg-card {
+  background-color: hsl(var(--card)) !important;
+}
+
+/* Force content visibility on first load */
+body * {
+  animation: none !important;
+  opacity: 1 !important;
+  transition: none !important;
 } 

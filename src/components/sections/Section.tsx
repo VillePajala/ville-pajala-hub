@@ -1,7 +1,6 @@
 'use client'
 
 import { ReactNode } from 'react'
-import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 interface SectionProps {
@@ -20,10 +19,7 @@ export function Section({
   delay = 0
 }: SectionProps) {
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay }}
+    <section
       className={cn("space-y-6", className)}
     >
       {(title || description) && (
@@ -37,6 +33,6 @@ export function Section({
         </div>
       )}
       {children}
-    </motion.section>
+    </section>
   )
 } 
