@@ -28,7 +28,9 @@ export function Layout({ children }: LayoutProps) {
       <div className={cn("flex flex-1 relative z-10")}>
         {isMounted && <Sidebar />}
         <main className={cn("flex-1 overflow-y-auto w-full pt-16 pb-16")}>
-          {children}
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            {children}
+          </div>
         </main>
       </div>
     </div>
