@@ -100,7 +100,7 @@ export default function CaseStudiesPage() {
         description="Detailed explorations of challenges, solutions, and outcomes from selected projects."
       >
         <div className="space-y-12">
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto text-center">
             These case studies provide in-depth looks at specific projects, detailing the challenges faced, 
             the solutions implemented, and the measurable results achieved. Each case study demonstrates 
             my approach to solving complex problems and delivering measurable value.
@@ -110,9 +110,10 @@ export default function CaseStudiesPage() {
           <div className="space-y-16">
             {caseStudies.map((study, index) => (
               <div key={study.id} className="scroll-mt-24" id={`case-study-${study.id}`}>
-                <Card className="overflow-hidden">
+                <Card className="overflow-hidden shadow-md bg-card/90 hover:bg-card/95 transition-all">
                   <div className="grid md:grid-cols-2 gap-0">
-                    <div className={`${index % 2 === 1 ? 'md:order-2' : ''} h-full`}>
+                    <div className={`${index % 2 === 1 ? 'md:order-2' : ''} h-full relative`}>
+                      <div className="absolute inset-0 bg-primary/5 mix-blend-overlay z-10"></div>
                       <div className="h-64 md:h-full w-full overflow-hidden">
                         <img 
                           src={study.image} 
@@ -123,14 +124,14 @@ export default function CaseStudiesPage() {
                     </div>
                     <div className="p-6 md:p-8">
                       <div className="mb-2">
-                        <span className="inline-flex items-center rounded-full bg-secondary/70 px-2.5 py-0.5 text-xs font-medium text-secondary-foreground">
+                        <span className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
                           {study.industry}
                         </span>
                       </div>
-                      <h2 className="text-2xl font-bold mb-2">{study.title}</h2>
+                      <h2 className="text-2xl font-bold mb-2 text-primary">{study.title}</h2>
                       <h3 className="text-lg text-muted-foreground mb-4">Client: {study.client}</h3>
                       <p className="text-muted-foreground mb-6">{study.summary}</p>
-                      <Button asChild>
+                      <Button>
                         <Link href={`#case-study-details-${study.id}`}>View Case Study</Link>
                       </Button>
                     </div>
@@ -140,23 +141,23 @@ export default function CaseStudiesPage() {
                 <div className="mt-8 scroll-mt-24" id={`case-study-details-${study.id}`}>
                   <div className="grid md:grid-cols-3 gap-8">
                     <div className="md:col-span-1 space-y-6">
-                      <Card>
+                      <Card className="bg-card/90 hover:bg-card/95 transition-all border-t-2 border-t-primary/70">
                         <CardHeader>
-                          <CardTitle>Challenge</CardTitle>
+                          <CardTitle className="text-primary/90">Challenge</CardTitle>
                         </CardHeader>
                         <CardContent>
                           <p className="text-muted-foreground">{study.challenge}</p>
                         </CardContent>
                       </Card>
                       
-                      <Card>
+                      <Card className="bg-card/90 hover:bg-card/95 transition-all border-t-2 border-t-primary/70">
                         <CardHeader>
-                          <CardTitle>Technologies</CardTitle>
+                          <CardTitle className="text-primary/90">Technologies</CardTitle>
                         </CardHeader>
                         <CardContent>
                           <div className="flex flex-wrap gap-2">
                             {study.technologies.map((tech, i) => (
-                              <span key={i} className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                              <span key={i} className="inline-flex items-center rounded-full bg-secondary/20 px-2.5 py-0.5 text-xs font-medium text-secondary-foreground">
                                 {tech}
                               </span>
                             ))}
@@ -166,18 +167,18 @@ export default function CaseStudiesPage() {
                     </div>
                     
                     <div className="md:col-span-2 space-y-6">
-                      <Card>
+                      <Card className="bg-card/90 hover:bg-card/95 transition-all border-t-2 border-t-primary/70">
                         <CardHeader>
-                          <CardTitle>Solution</CardTitle>
+                          <CardTitle className="text-primary/90">Solution</CardTitle>
                         </CardHeader>
                         <CardContent>
                           <p className="text-muted-foreground">{study.solution}</p>
                         </CardContent>
                       </Card>
                       
-                      <Card>
+                      <Card className="bg-card/90 hover:bg-card/95 transition-all border-t-2 border-t-primary/70">
                         <CardHeader>
-                          <CardTitle>Results</CardTitle>
+                          <CardTitle className="text-primary/90">Results</CardTitle>
                         </CardHeader>
                         <CardContent>
                           <ul className="space-y-2">
@@ -192,13 +193,14 @@ export default function CaseStudiesPage() {
                       </Card>
                       
                       {study.testimonial && (
-                        <Card className="bg-primary/5 border-primary/10">
+                        <Card className="bg-primary/5 hover:bg-primary/10 transition-all border-primary/10">
                           <CardContent className="pt-6">
-                            <blockquote className="text-lg italic mb-4">
+                            <blockquote className="text-lg italic mb-4 text-foreground/90">
                               "{study.testimonial.quote}"
                             </blockquote>
-                            <footer className="text-right">
-                              <p className="font-medium">{study.testimonial.author}</p>
+                            <div className="h-px w-16 bg-primary/60 mb-4"></div>
+                            <footer>
+                              <p className="font-medium text-primary">{study.testimonial.author}</p>
                               <p className="text-sm text-muted-foreground">{study.testimonial.role}</p>
                             </footer>
                           </CardContent>
@@ -211,17 +213,17 @@ export default function CaseStudiesPage() {
             ))}
           </div>
           
-          <div className="rounded-lg border border-border bg-card p-8 text-center">
-            <h3 className="text-2xl font-semibold mb-4">Have a Similar Challenge?</h3>
+          <div className="rounded-lg border border-border bg-primary/5 hover:bg-primary/10 transition-all p-8 text-center">
+            <h3 className="text-2xl font-semibold mb-4 text-primary">Have a Similar Challenge?</h3>
             <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
               I'd love to discuss how my expertise can help you overcome your business or technical challenges. 
               Let's explore how we can work together to achieve measurable results for your organization.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Button asChild size="lg">
+              <Button size="lg">
                 <Link href="/contact">Discuss Your Project</Link>
               </Button>
-              <Button asChild variant="outline">
+              <Button variant="outline" size="lg">
                 <Link href="/services">View Services</Link>
               </Button>
             </div>
