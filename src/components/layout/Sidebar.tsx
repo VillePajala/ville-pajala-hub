@@ -341,8 +341,12 @@ export function Sidebar() {
         className="fixed left-0 top-0 z-20 mt-16 hidden h-full w-3 cursor-pointer bg-border/30 hover:bg-border/50 transition-colors md:block"
         onClick={() => setIsDesktopSidebarOpen(true)}
       >
-        <div className="absolute left-0 top-1/2 flex h-12 w-6 -translate-y-1/2 items-center justify-center rounded-r-md bg-primary/70 text-primary-foreground shadow-md hover:bg-primary/90 transition-all">
-          <ChevronRight className="h-5 w-5" />
+        <div className="absolute left-0 top-1/2 flex h-16 w-8 -translate-y-1/2 items-center justify-center rounded-r-md bg-primary/80 text-primary-foreground shadow-lg hover:bg-primary/90 transition-all hover:scale-110 border-r border-t border-b border-primary/30 backdrop-blur-sm">
+          <div className="relative">
+            <ChevronRight className="h-6 w-6" />
+            <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-indigo-400 animate-ping"></span>
+            <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-indigo-500"></span>
+          </div>
         </div>
       </div>
       

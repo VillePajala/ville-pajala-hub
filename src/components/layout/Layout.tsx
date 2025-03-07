@@ -22,14 +22,15 @@ export function Layout({ children }: LayoutProps) {
       <div className="fixed inset-0 bg-[url('/images/backgrounds/background_image.png')] bg-cover bg-center bg-fixed bg-no-repeat pointer-events-none"></div>
       
       {/* Dark overlay for readability */}
-      <div className="fixed inset-0 bg-black/70 pointer-events-none"></div>
+      <div className="fixed inset-0 bg-black/55 pointer-events-none"></div>
       
       {/* Background pattern overlay */}
-      <div className="fixed inset-0 bg-[url('/grid-pattern.svg')] bg-repeat opacity-[0.02] pointer-events-none"></div>
+      <div className="fixed inset-0 bg-[url('/grid-pattern.svg')] bg-repeat opacity-[0.03] pointer-events-none"></div>
       
       {/* Glow elements */}
-      <div className="fixed -top-20 -left-20 w-96 h-96 bg-purple-900/20 rounded-full blur-[100px] opacity-40 pointer-events-none"></div>
-      <div className="fixed -bottom-20 -right-20 w-96 h-96 bg-indigo-900/20 rounded-full blur-[100px] opacity-40 pointer-events-none"></div>
+      <div className="fixed -top-20 -left-20 w-[500px] h-[500px] bg-purple-900/30 rounded-full blur-[120px] opacity-50 pointer-events-none"></div>
+      <div className="fixed -bottom-20 -right-20 w-[500px] h-[500px] bg-indigo-900/30 rounded-full blur-[120px] opacity-50 pointer-events-none"></div>
+      <div className="fixed top-1/3 right-1/4 w-[300px] h-[300px] bg-blue-900/20 rounded-full blur-[100px] opacity-30 pointer-events-none"></div>
       
       <div className={cn("flex flex-1 relative z-10")}>
         {isMounted && <Sidebar />}
