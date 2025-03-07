@@ -2,7 +2,16 @@
 
 import { ReactNode } from 'react'
 import { Sidebar } from './Sidebar'
-import { motion } from 'framer-motion'
+import dynamic from 'next/dynamic'
+
+// Dynamically import motion to avoid chunk loading issues
+const MotionMain = dynamic(() => 
+  import('framer-motion').then((mod) => {
+    const { motion } = mod
+    return motion.main
+  }),
+  { ssr: false }
+)
 
 type LayoutProps = {
   children: ReactNode
@@ -12,7 +21,7 @@ export function Layout({ children }: LayoutProps) {
   return (
     <div className="flex min-h-screen bg-background">
       <Sidebar />
-      <motion.main
+      <MotionMain
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
@@ -22,7 +31,7 @@ export function Layout({ children }: LayoutProps) {
         <div className="container mx-auto px-4 py-8 md:px-8">
           {children}
         </div>
-      </motion.main>
+      </MotionMain>
     </div>
   )
 } 
