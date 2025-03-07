@@ -22,15 +22,15 @@ export function Section({
 }: SectionProps) {
   return (
     <section
-      className={cn("space-y-6", className)}
+      className={cn("space-y-6 rounded-xl p-6 bg-card/20 backdrop-blur-sm", className)}
     >
       {(title || description) && (
         <div className="space-y-2">
           {title && (
-            <h2 className={cn("text-3xl font-bold tracking-tight", titleClassName)}>{title}</h2>
+            <h2 className={cn("text-3xl font-bold tracking-tight text-white drop-shadow-sm", titleClassName)}>{title}</h2>
           )}
           {description && (
-            <p className="text-xl text-muted-foreground">{description}</p>
+            <p className="text-xl text-white/80">{description}</p>
           )}
         </div>
       )}

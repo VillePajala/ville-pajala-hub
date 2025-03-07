@@ -270,7 +270,7 @@ export function Sidebar() {
   return (
     <>
       {/* Mobile Header */}
-      <div className="fixed left-0 right-0 top-0 z-40 border-b border-border bg-card px-4 md:hidden">
+      <div className="fixed left-0 right-0 top-0 z-40 border-b border-border/40 bg-card/70 backdrop-blur-md px-4 md:hidden">
         <div className="flex h-16 items-center justify-between">
           <Link href="/" className="text-xl font-bold text-foreground hover:text-primary/80">
             Ville Pajala
@@ -291,7 +291,7 @@ export function Sidebar() {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed left-0 right-0 top-16 z-40 h-[calc(100vh-4rem)] overflow-y-auto bg-card py-4 shadow-xl"
+            className="fixed left-0 right-0 top-16 z-40 h-[calc(100vh-4rem)] overflow-y-auto bg-card/80 backdrop-blur-md py-4 shadow-xl"
           >
             <div className="px-6">
               {navigation.map((item) => (
@@ -315,7 +315,7 @@ export function Sidebar() {
       </AnimatePresence>
       
       {/* Desktop Header */}
-      <div className="fixed left-0 right-0 top-0 z-30 hidden h-16 items-center border-b border-border bg-card px-6 md:flex">
+      <div className="fixed left-0 right-0 top-0 z-30 hidden h-16 items-center border-b border-border/40 bg-card/70 backdrop-blur-md px-6 md:flex">
         <div className="flex h-16 w-full items-center justify-between">
           <Link href="/" className="text-xl font-bold text-foreground hover:text-primary transition-colors">
             Ville Pajala
@@ -330,7 +330,7 @@ export function Sidebar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-30 hidden bg-background/80 backdrop-blur-sm md:block"
+            className="fixed inset-0 z-30 hidden bg-black/50 backdrop-blur-sm md:block"
             onClick={() => setIsDesktopSidebarOpen(false)}
           />
         )}
@@ -355,7 +355,7 @@ export function Sidebar() {
             exit={{ x: -320 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
             className={cn(
-              'fixed left-0 top-0 z-40 hidden h-screen w-64 border-r border-border bg-gradient-to-b from-card/95 via-primary/5 to-accent/5 shadow-lg backdrop-blur-sm md:block',
+              'fixed left-0 top-0 z-40 hidden h-screen w-64 border-r border-border/40 bg-gradient-to-b from-card/80 via-primary/5 to-accent/5 shadow-lg backdrop-blur-md md:block',
               isScrolled && 'bg-opacity-90 backdrop-blur-md supports-[backdrop-filter]:bg-opacity-75'
             )}
             onMouseEnter={() => {
