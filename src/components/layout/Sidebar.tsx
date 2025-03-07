@@ -6,11 +6,23 @@ import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { MenuButton } from '@/components/ui/MenuButton'
+import { 
+  Home, 
+  Bot, 
+  Palette, 
+  BookOpen, 
+  Sparkles, 
+  Wrench, 
+  PenTool,
+  ChevronDown,
+  ChevronUp,
+  ExternalLink
+} from 'lucide-react'
 
 type NavItem = {
   title: string
   href: string
-  icon?: string
+  icon?: React.ReactNode
   children?: NavItem[]
 }
 
@@ -18,12 +30,12 @@ const navigation: NavItem[] = [
   {
     title: 'Home',
     href: '/',
-    icon: '🏠'
+    icon: <Home className="h-5 w-5" />
   },
   {
     title: 'Technology & AI',
     href: '/technology-ai',
-    icon: '🤖',
+    icon: <Bot className="h-5 w-5" />,
     children: [
       { title: 'AI Projects', href: '/technology-ai/ai-projects' },
       { title: 'Web Development', href: '/technology-ai/web-development' },
@@ -33,7 +45,7 @@ const navigation: NavItem[] = [
   {
     title: 'Creative Work',
     href: '/creative-work',
-    icon: '🎨',
+    icon: <Palette className="h-5 w-5" />,
     children: [
       { title: 'Art', href: '/creative-work/art' },
       { title: 'Music', href: '/creative-work/music' },
@@ -44,7 +56,7 @@ const navigation: NavItem[] = [
   {
     title: 'Philosophy & Learning',
     href: '/philosophy-learning',
-    icon: '📚',
+    icon: <BookOpen className="h-5 w-5" />,
     children: [
       { title: 'Essays', href: '/philosophy-learning/essays' },
       { title: 'Book Reviews', href: '/philosophy-learning/book-reviews' },
@@ -54,7 +66,7 @@ const navigation: NavItem[] = [
   {
     title: 'Metaphysics',
     href: '/metaphysics',
-    icon: '✨',
+    icon: <Sparkles className="h-5 w-5" />,
     children: [
       { title: 'Esoteric Thinking', href: '/metaphysics/esoteric-thinking' },
       { title: 'Intuition', href: '/metaphysics/intuition' },
@@ -64,7 +76,7 @@ const navigation: NavItem[] = [
   {
     title: 'Services',
     href: '/services',
-    icon: '🛠️',
+    icon: <Wrench className="h-5 w-5" />,
     children: [
       { title: 'AI & Machine Learning', href: '/services/ai-machine-learning' },
       { title: 'Automation Solutions', href: '/services/automation-solutions' },
@@ -75,7 +87,7 @@ const navigation: NavItem[] = [
   {
     title: 'Blog',
     href: '/blog',
-    icon: '📝',
+    icon: <PenTool className="h-5 w-5" />,
     children: [
       { title: 'All Posts', href: '/blog' },
       { title: 'Categories', href: '/blog/categories' },
@@ -85,7 +97,7 @@ const navigation: NavItem[] = [
   {
     title: 'Portfolio',
     href: '/portfolio',
-    icon: '💼',
+    icon: <Wrench className="h-5 w-5" />,
     children: [
       { title: 'All Projects', href: '/portfolio' },
       { title: 'Case Studies', href: '/portfolio/case-studies' },
@@ -95,12 +107,12 @@ const navigation: NavItem[] = [
   {
     title: 'Contact',
     href: '/contact',
-    icon: '📧'
+    icon: <ExternalLink className="h-5 w-5" />
   },
   {
     title: 'Subscribe',
     href: '/subscribe',
-    icon: '📬'
+    icon: <PenTool className="h-5 w-5" />
   }
 ]
 
@@ -119,20 +131,28 @@ const NavItemComponent = memo(({ item, pathname, expandedItems, toggleExpand }: 
       <button
         onClick={() => item.children && toggleExpand(item.title)}
         className={cn(
-          'group flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors',
+          'group flex w-full items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200',
           isActive
-            ? 'bg-primary text-primary-foreground'
-            : 'text-foreground hover:bg-muted hover:text-primary',
+            ? 'bg-primary text-primary-foreground shadow-md'
+            : 'text-foreground hover:bg-muted/80 hover:text-primary hover:shadow-sm',
           item.children && 'justify-between'
         )}
       >
         <span className="flex items-center">
-          {item.icon && <span className="mr-2">{item.icon}</span>}
+          {item.icon && (
+            <span className={cn(
+              "mr-2.5 transition-transform duration-200",
+              isActive ? "text-primary-foreground" : "text-muted-foreground group-hover:text-primary",
+              "group-hover:scale-110"
+            )}>
+              {item.icon}
+            </span>
+          )}
           {item.title}
         </span>
         {item.children && (
           <span className="ml-auto transform transition-transform duration-200">
-            {isExpanded ? '▼' : '▶'}
+            {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
           </span>
         )}
       </button>
@@ -146,16 +166,16 @@ const NavItemComponent = memo(({ item, pathname, expandedItems, toggleExpand }: 
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="ml-4 mt-1 space-y-1">
+            <div className="ml-4 mt-1.5 space-y-1">
               {item.children.map((child) => (
                 <Link
                   key={child.href}
                   href={child.href}
                   className={cn(
-                    'block rounded-md px-3 py-2 text-sm transition-colors',
+                    'block rounded-md px-3 py-2 text-sm transition-colors duration-200',
                     pathname === child.href
-                      ? 'bg-primary/10 text-primary'
-                      : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                      ? 'bg-primary/15 text-primary font-medium'
+                      : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
                   )}
                 >
                   {child.title}
@@ -238,16 +258,16 @@ export function Sidebar() {
       {/* Sidebar */}
       <motion.nav
         className={cn(
-          'fixed left-0 top-0 z-40 h-screen w-64 transform border-r border-border bg-card transition-all duration-300',
+          'fixed left-0 top-0 z-40 h-screen w-64 transform border-r border-border bg-card/95 shadow-lg transition-all duration-300 backdrop-blur-sm',
           'md:translate-x-0',
           isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full',
-          isScrolled && 'bg-opacity-90 backdrop-blur supports-[backdrop-filter]:bg-opacity-75'
+          isScrolled && 'bg-opacity-90 backdrop-blur-md supports-[backdrop-filter]:bg-opacity-75'
         )}
       >
         <div className="flex h-full flex-col">
           {/* Desktop Logo/Header */}
-          <div className="hidden h-16 items-center border-b border-border px-6 md:flex">
-            <Link href="/" className="text-xl font-bold text-foreground hover:text-primary/80">
+          <div className="hidden h-16 items-center border-b border-border/50 px-6 md:flex">
+            <Link href="/" className="text-xl font-bold text-foreground hover:text-primary transition-colors">
               Ville Pajala
             </Link>
           </div>
@@ -266,7 +286,7 @@ export function Sidebar() {
           </div>
 
           {/* Footer */}
-          <div className="border-t border-border p-4">
+          <div className="border-t border-border/50 p-4 bg-background/30">
             <div className="flex items-center justify-between text-sm text-muted-foreground">
               <span>© 2024 Ville Pajala</span>
             </div>
