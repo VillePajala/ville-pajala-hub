@@ -22,7 +22,7 @@ export default function Home() {
         </div>
         
         {/* Center-aligned content */}
-        <div className="w-full max-w-[540px] px-6">
+        <div className="w-full max-w-[540px] px-6 text-center">
           <div className="inline-flex items-center space-x-2 rounded-full px-4 py-1.5 text-xs font-medium bg-indigo-950/60 text-indigo-300 border border-indigo-500/20 mb-6">
             <span className="relative flex h-2 w-2 mr-1">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
@@ -42,7 +42,7 @@ export default function Home() {
               build <span className="text-impactful">impactful digital experiences</span>.
             </p>
             
-            <div className="flex flex-wrap gap-4 mt-10">
+            <div className="flex flex-wrap justify-center gap-4 mt-10">
               <Link href="/portfolio" className="inline-flex h-12 items-center justify-center rounded-full bg-purple-600 px-8 font-medium text-white transition-colors hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2">
                 View Portfolio
               </Link>
