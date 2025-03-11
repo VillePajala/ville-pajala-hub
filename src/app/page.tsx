@@ -1471,9 +1471,9 @@ export default function Home() {
               <span className="h-px w-5 bg-indigo-400/50"></span>
             </p>
             <div className="mb-6">
-              <h1 className={`text-8xl font-semibold gradient-name leading-tight drop-shadow-lg mb-2 tracking-tight header-entrance ${isVisible ? 'visible' : ''}`}>
-              Ville Pajala
-            </h1>
+              <h1 className={`text-8xl font-semibold gradient-name glitch-text leading-tight drop-shadow-lg mb-2 tracking-tight header-entrance ${isVisible ? 'visible' : ''}`} data-text="Ville Pajala">
+                Ville Pajala
+              </h1>
             </div>
             
             <div className="max-w-3xl mx-auto mb-12">
