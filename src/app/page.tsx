@@ -104,8 +104,36 @@ export default function Home() {
     return () => {
       window.removeEventListener('mousemove', handleParallax);
       window.removeEventListener('scroll', handleScroll);
-      cleanup();
+      if (typeof cleanup === 'function') {
+        cleanup();
+      }
     };
+  }, []);
+
+  // Magnetic effect for title letters
+  useEffect(() => {
+    const title = document.querySelector('.magnetic-title');
+    if (title) {
+      const letters = title.querySelectorAll('.magnetic-letter');
+
+      console.log('Magnetic effect initialized');
+      const handleMouseMove = (e: MouseEvent) => {
+        console.log('Mouse move detected');
+        letters.forEach((letter) => {
+          const rect = (letter as HTMLElement).getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          (letter as HTMLElement).style.setProperty('--x-offset', `${x * 0.1}px`);
+          (letter as HTMLElement).style.setProperty('--y-offset', `${y * 0.1}px`);
+        });
+      };
+
+      window.addEventListener('mousemove', handleMouseMove);
+
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove);
+      };
+    }
   }, []);
 
   return (
@@ -1471,8 +1499,10 @@ export default function Home() {
               <span className="h-px w-5 bg-indigo-400/50"></span>
             </p>
             <div className="mb-6">
-              <h1 className={`text-8xl font-semibold gradient-name glitch-text leading-tight drop-shadow-lg mb-2 tracking-tight header-entrance ${isVisible ? 'visible' : ''}`} data-text="Ville Pajala">
-                Ville Pajala
+              <h1 className={`text-8xl font-semibold gradient-name glitch-text leading-tight drop-shadow-lg mb-2 tracking-tight header-entrance magnetic-title ${isVisible ? 'visible' : ''}`} data-text="Ville Pajala">
+                {"Ville Pajala".split('').map((char, index) => (
+                  <span key={index} className="magnetic-letter">{char}</span>
+                ))}
               </h1>
             </div>
             

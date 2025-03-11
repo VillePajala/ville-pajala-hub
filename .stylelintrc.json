@@ -1,0 +1,40 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-tailwindcss"
+  ],
+  "rules": {
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": null,
+    "no-descending-specificity": null,
+    "no-duplicate-selectors": null,
+    "declaration-block-trailing-semicolon": null,
+    "property-no-unknown": [
+      true,
+      {
+        "ignoreProperties": [
+          "text-fill-color",
+          "-webkit-text-fill-color",
+          "backdrop-filter",
+          "-webkit-backdrop-filter"
+        ]
+      }
+    ],
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["global"]
+      }
+    ],
+    "selector-pseudo-element-no-unknown": [
+      true,
+      {
+        "ignorePseudoElements": ["v-deep", "v-global", "v-slotted"]
+      }
+    ],
+    "media-feature-range-notation": null,
+    "alpha-value-notation": null,
+    "color-function-notation": null
+  },
+  "ignoreFiles": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "node_modules/**/*"]
+} 
