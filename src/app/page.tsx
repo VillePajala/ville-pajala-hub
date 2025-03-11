@@ -2,22 +2,126 @@
 
 import Link from 'next/link'
 import { PageTransition } from '@/components/ui/PageTransition'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { injectMysticalSymbols } from './MysticalOverlay'
 
 export default function Home() {
+  const [isVisible, setIsVisible] = useState(false);
+
   useEffect(() => {
+    // Set visible after a short delay for entrance animation
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 300);
+
     // Inject mystical symbols
     const cleanup = injectMysticalSymbols();
-    return cleanup;
+
+    // Create background particles
+    const particleContainer = document.querySelector('.particle-container');
+    if (particleContainer) {
+      const createParticles = () => {
+        // Clear any existing particles
+        particleContainer.innerHTML = '';
+        
+        // Create new particles
+        const particleCount = Math.min(window.innerWidth / 10, 50); // Responsive count
+        
+        for (let i = 0; i < particleCount; i++) {
+          const particle = document.createElement('div');
+          particle.classList.add('particle');
+          
+          // Random starting position
+          const x = Math.random() * window.innerWidth;
+          const y = Math.random() * window.innerHeight;
+          
+          // Random properties
+          const size = Math.random() * 3 + 1;
+          const opacity = Math.random() * 0.2 + 0.1;
+          const duration = Math.random() * 30 + 20;
+          const delay = Math.random() * duration;
+          const drift = (Math.random() - 0.5) * 100;
+          const distance = Math.random() * 300 + 100;
+          
+          particle.style.left = `${x}px`;
+          particle.style.top = `${y}px`;
+          particle.style.width = `${size}px`;
+          particle.style.height = `${size}px`;
+          particle.style.setProperty('--opacity', opacity.toString());
+          particle.style.setProperty('--duration', `${duration}s`);
+          particle.style.setProperty('--drift', `${drift}px`);
+          particle.style.setProperty('--travel-distance', `${distance}px`);
+          particle.style.animationDelay = `${delay}s`;
+          
+          particleContainer.appendChild(particle);
+        }
+      };
+      
+      // Initial creation
+      createParticles();
+      
+      // Recreate on resize for responsiveness
+      const handleResize = () => {
+        createParticles();
+      };
+      
+      window.addEventListener('resize', handleResize);
+      
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        clearTimeout(timer);
+      };
+    }
+    
+    // Parallax effect setup
+    const handleParallax = (e: MouseEvent) => {
+      const parallaxElements = document.querySelectorAll('.parallax-element');
+      
+      parallaxElements.forEach(element => {
+        const speed = element.classList.contains('parallax-slow') ? 0.05 :
+                      element.classList.contains('parallax-medium') ? 0.1 : 0.15;
+        
+        const x = (window.innerWidth / 2 - e.clientX) * speed;
+        const y = (window.innerHeight / 2 - e.clientY) * speed;
+        
+        (element as HTMLElement).style.transform = `translateX(${x}px) translateY(${y}px)`;
+      });
+    };
+    
+    // Parallax effect on scroll
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const parallaxContainers = document.querySelectorAll('.parallax-container');
+      
+      parallaxContainers.forEach(container => {
+        (container as HTMLElement).style.transform = `translateY(${scrollY * 0.3}px)`;
+      });
+    };
+    
+    window.addEventListener('mousemove', handleParallax);
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      window.removeEventListener('mousemove', handleParallax);
+      window.removeEventListener('scroll', handleScroll);
+      cleanup();
+    };
   }, []);
 
   return (
-    <PageTransition className="space-y-24">
-      {/* Remove any previous mystical symbols code */}
+    <PageTransition className="space-y-8">
+      {/* Add the particle container */}
+      <div className="particle-container"></div>
+      
+      {/* Add parallax background elements */}
+      <div className="parallax-container">
+        <div className="parallax-element parallax-slow" style={{ left: '10%', top: '20%', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%)' }}></div>
+        <div className="parallax-element parallax-medium" style={{ right: '15%', top: '30%', width: '250px', height: '250px', background: 'radial-gradient(circle, rgba(168, 85, 247, 0.05) 0%, transparent 70%)' }}></div>
+        <div className="parallax-element parallax-fast" style={{ left: '20%', bottom: '20%', width: '200px', height: '200px', background: 'radial-gradient(circle, rgba(20, 184, 166, 0.05) 0%, transparent 70%)' }}></div>
+      </div>
       
       {/* Hero Section with proper alignment */}
-      <section className="relative flex justify-center items-center pt-32 pb-32 w-full">
+      <section className="relative flex justify-center items-center pt-32 pb-8 w-full">
         {/* Physics Universe Animation */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
           <svg className="absolute w-full h-full" viewBox="0 0 1200 800" fill="none" preserveAspectRatio="none">
@@ -29,7 +133,7 @@ export default function Home() {
               
               <filter id="neural-glow" x="-50%" y="-50%" width="200%" height="200%">
                 <feGaussianBlur stdDeviation="3" result="blur" />
-                <feFlood flood-color="#A855F7" flood-opacity="0.8" result="color"/>
+                <feFlood floodColor="#A855F7" floodOpacity="0.8" result="color"/>
                 <feComposite in="color" in2="blur" operator="in" result="glow"/>
                 <feComposite in="SourceGraphic" in2="glow" operator="over"/>
               </filter>
@@ -120,7 +224,7 @@ export default function Home() {
               
               <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
                 <feGaussianBlur stdDeviation="6" result="blur" />
-                <feFlood flood-color="#4F46E5" flood-opacity="0.3" result="color" />
+                <feFlood floodColor="#4F46E5" floodOpacity="0.3" result="color" />
                 <feComposite in="color" in2="blur" operator="in" result="glow" />
                 <feComposite in="SourceGraphic" in2="glow" operator="over" />
               </filter>
@@ -1361,23 +1465,29 @@ export default function Home() {
           
           
           <div className="space-y-5">
-            <p className="text-indigo-300 text-xl font-medium">Vibe Engineer</p>
-            <div>
-              <h1 className="text-8xl font-bold gradient-name leading-tight drop-shadow-lg mb-2">
+            <p className="flex items-center justify-center space-x-2 mb-4">
+              <span className="h-px w-5 bg-indigo-400/50"></span>
+              <span className={`text-vibey text-xl font-medium tracking-wider subheader-entrance ${isVisible ? 'visible' : ''}`}>VIBE ENGINEER</span>
+              <span className="h-px w-5 bg-indigo-400/50"></span>
+            </p>
+            <div className="mb-6">
+              <h1 className={`text-8xl font-semibold gradient-name leading-tight drop-shadow-lg mb-2 tracking-tight header-entrance ${isVisible ? 'visible' : ''}`}>
               Ville Pajala
             </h1>
             </div>
             
-            <p className="text-xl text-slate-200 mt-6 leading-relaxed">
-              I craft <span className="text-elegant font-medium">elegant solutions</span> to complex problems and<br className="hidden md:block" />
-              build <span className="text-impactful font-medium">impactful digital experiences</span>.
-            </p>
+            <div className="max-w-3xl mx-auto mb-12">
+              <p className={`text-xl mt-3 leading-relaxed font-normal text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] tracking-normal subheader-entrance ${isVisible ? 'visible' : ''}`}>
+                I craft <span className="text-gradient-high-vis">elegant solutions</span> to complex problems and
+                build <span className="text-gradient-impactful">impactful digital experiences</span>.
+              </p>
+            </div>
             
             <div className="flex flex-wrap justify-center gap-4 mt-10">
-              <Link href="/portfolio" className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 px-8 font-medium text-white transition-all duration-300 hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 shadow-lg hover:shadow-purple-500/20 hover:scale-105">
+              <Link href="/portfolio" className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 px-8 font-medium text-white transition-all duration-300 hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 shadow-lg hover:shadow-purple-500/20 hover:scale-105 btn-shimmer">
                 View Portfolio
               </Link>
-              <Link href="/contact" className="inline-flex h-12 items-center justify-center rounded-full bg-transparent px-8 font-medium text-white transition-all duration-300 hover:bg-white/10 border border-white/20 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 shadow-md hover:shadow-white/10 hover:border-white/40 hover:scale-105 backdrop-blur-sm">
+              <Link href="/contact" className="inline-flex h-12 items-center justify-center rounded-full px-8 font-medium text-white btn-glass">
                 Get in Touch
               </Link>
             </div>
@@ -1386,7 +1496,7 @@ export default function Home() {
       </section>
 
       {/* Featured Work Section */}
-      <section className="flex justify-center py-12 relative">
+      <section className="flex justify-center py-6 relative">
         {/* Subtle section divider */}
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent"></div>
         
@@ -1403,10 +1513,10 @@ export default function Home() {
           
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {/* Blog Card */}
-            <div className="group relative">
+            <div className="group relative float-card">
               <div className="card-dark flex flex-col h-full bg-indigo-950/40 shadow-[0_0_15px_rgba(79,70,229,0.15)] border border-indigo-500/20">
                 <div className="absolute inset-0 bg-gradient-to-tr from-indigo-600/5 to-transparent opacity-100 rounded-xl"></div>
-                <div className="flex-1 p-6 space-y-4 relative z-10">
+                <div className="flex-1 space-y-4 relative z-10">
                   <div className="w-12 h-12 rounded-full flex items-center justify-center bg-indigo-900/50 border border-indigo-500/40 mb-4 shadow-[0_0_10px_rgba(99,102,241,0.3)]">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
@@ -1417,7 +1527,7 @@ export default function Home() {
                   <p className="text-slate-400">Thoughts and insights on software development, technology, and business.</p>
                 </div>
                 
-                <div className="p-6 pt-0 relative z-10">
+                <div className="pt-3 relative z-10">
                   <Link 
                     href="/blog" 
                     className="inline-flex items-center space-x-2 text-indigo-400 group-hover:text-indigo-300 transition-colors"
@@ -1430,12 +1540,12 @@ export default function Home() {
             </div>
             
             {/* Portfolio Card */}
-            <div className="group relative">
-              <div className="card-dark flex flex-col h-full bg-teal-950/40 shadow-[0_0_15px_rgba(20,184,166,0.15)] border border-teal-500/20">
-                <div className="absolute inset-0 bg-gradient-to-tr from-teal-600/5 to-transparent opacity-100 rounded-xl"></div>
-                <div className="flex-1 p-6 space-y-4 relative z-10">
-                  <div className="w-12 h-12 rounded-full flex items-center justify-center bg-teal-900/50 border border-teal-500/40 mb-4 shadow-[0_0_10px_rgba(20,184,166,0.3)]">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="group relative float-card">
+              <div className="card-dark flex flex-col h-full bg-purple-950/40 shadow-[0_0_15px_rgba(147,51,234,0.15)] border border-purple-500/20">
+                <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/5 to-transparent opacity-100 rounded-xl"></div>
+                <div className="flex-1 space-y-4 relative z-10">
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center bg-purple-900/50 border border-purple-500/40 mb-4 shadow-[0_0_10px_rgba(147,51,234,0.3)]">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z" />
                     </svg>
                   </div>
@@ -1444,10 +1554,10 @@ export default function Home() {
                   <p className="text-slate-400">Showcase of my projects and professional work in software development.</p>
                 </div>
                 
-                <div className="p-6 pt-0 relative z-10">
+                <div className="pt-3 relative z-10">
                   <Link 
                     href="/portfolio" 
-                    className="inline-flex items-center space-x-2 text-teal-400 group-hover:text-teal-300 transition-colors"
+                    className="inline-flex items-center space-x-2 text-purple-400 group-hover:text-purple-300 transition-colors"
                   >
                     <span>View Projects</span>
                     <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
@@ -1457,24 +1567,24 @@ export default function Home() {
             </div>
             
             {/* Services Card */}
-            <div className="group relative">
-              <div className="card-dark flex flex-col h-full bg-purple-950/40 shadow-[0_0_15px_rgba(147,51,234,0.15)] border border-purple-500/20">
-                <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/5 to-transparent opacity-100 rounded-xl"></div>
-                <div className="flex-1 p-6 space-y-4 relative z-10">
-                  <div className="w-12 h-12 rounded-full flex items-center justify-center bg-purple-900/50 border border-purple-500/40 mb-4 shadow-[0_0_10px_rgba(147,51,234,0.3)]">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+            <div className="group relative float-card">
+              <div className="card-dark flex flex-col h-full bg-teal-950/40 shadow-[0_0_15px_rgba(20,184,166,0.15)] border border-teal-500/20">
+                <div className="absolute inset-0 bg-gradient-to-tr from-teal-600/5 to-transparent opacity-100 rounded-xl"></div>
+                <div className="flex-1 space-y-4 relative z-10">
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center bg-teal-900/50 border border-teal-500/40 mb-4 shadow-[0_0_10px_rgba(20,184,166,0.3)]">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
                     </svg>
                   </div>
                   
                   <h3 className="text-2xl font-bold">Services</h3>
-                  <p className="text-slate-400">Professional consulting and development services for your digital needs.</p>
+                  <p className="text-slate-400">Professional services in software development, AI implementation, and more.</p>
                 </div>
                 
-                <div className="p-6 pt-0 relative z-10">
+                <div className="pt-3 relative z-10">
                   <Link 
                     href="/services" 
-                    className="inline-flex items-center space-x-2 text-purple-400 group-hover:text-purple-300 transition-colors"
+                    className="inline-flex items-center space-x-2 text-teal-400 group-hover:text-teal-300 transition-colors"
                   >
                     <span>Discover Services</span>
                     <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
