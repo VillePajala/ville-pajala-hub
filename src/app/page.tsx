@@ -1467,7 +1467,7 @@ export default function Home() {
           <div className="space-y-5">
             <p className="flex items-center justify-center space-x-2 mb-4">
               <span className="h-px w-5 bg-indigo-400/50"></span>
-              <span className={`text-vibey text-xl font-medium tracking-wider subheader-entrance ${isVisible ? 'visible' : ''}`}>VIBE ENGINEER</span>
+              <span className={`text-vibey text-xl font-medium tracking-wider subheader-entrance ${isVisible ? 'visible' : ''}`} data-text="VIBE ENGINEER">VIBE ENGINEER</span>
               <span className="h-px w-5 bg-indigo-400/50"></span>
             </p>
             <div className="mb-6">

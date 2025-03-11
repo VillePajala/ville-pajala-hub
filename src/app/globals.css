@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Crimson+Pro:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Crimson+Pro:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
 
 :root {
   --background: #050614;
@@ -23,6 +23,7 @@
   
   /* Font variables - distinctive yet professional */
   --font-heading: 'Space Grotesk', sans-serif;
+  --font-display: 'Orbitron', sans-serif;
   --font-body: 'Outfit', sans-serif;
 }
 
