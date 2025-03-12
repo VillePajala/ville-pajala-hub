@@ -170,39 +170,39 @@
 
   /* Enhanced hover effects for key phrases */
   .text-gradient-high-vis {
-    background: linear-gradient(to right, #14f1d9, #3b82f6, #a855f7);
+    background: linear-gradient(to right, #5fffee, #78b9ff, #d5a6ff);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     background-size: 200% auto;
     animation: textShine 5s ease infinite;
-    text-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+    text-shadow: 0 0 15px rgba(150, 180, 255, 0.3);
     font-weight: 500;
     letter-spacing: 0.01em;
     transition: text-shadow 0.3s ease, transform 0.3s ease;
   }
 
   .text-gradient-high-vis:hover {
-    text-shadow: 0 0 15px rgba(59, 130, 246, 0.5), 0 0 30px rgba(59, 130, 246, 0.2);
+    text-shadow: 0 0 15px rgba(150, 180, 255, 0.6), 0 0 30px rgba(150, 180, 255, 0.3);
     transform: translateY(-1px) scale(1.02);
   }
 
   /* Custom high-visibility gradient for "impactful digital experiences" */
   .text-gradient-impactful {
-    background: linear-gradient(to right, #8b5cf6, #d946ef, #ec4899, #06b6d4);
+    background: linear-gradient(to right, #c2a9ff, #f8a6ff, #ffb1c6, #a2f0ff);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     background-size: 200% auto;
     animation: impactfulPulse 4s infinite;
-    text-shadow: 0 0 15px rgba(219, 39, 119, 0.2);
+    text-shadow: 0 0 15px rgba(230, 150, 255, 0.3);
     font-weight: 500;
     letter-spacing: 0.01em;
     transition: text-shadow 0.3s ease, transform 0.3s ease;
   }
 
   .text-gradient-impactful:hover {
-    text-shadow: 0 0 15px rgba(219, 39, 119, 0.5), 0 0 30px rgba(219, 39, 119, 0.2);
+    text-shadow: 0 0 15px rgba(230, 150, 255, 0.6), 0 0 30px rgba(230, 150, 255, 0.3);
     transform: translateY(-1px) scale(1.02);
   }
 
