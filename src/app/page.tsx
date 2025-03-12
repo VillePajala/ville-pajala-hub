@@ -110,28 +110,59 @@ export default function Home() {
     };
   }, []);
 
-  // Magnetic effect for title letters
+  // Magnetic title effect
   useEffect(() => {
     const title = document.querySelector('.magnetic-title');
     if (title) {
       const letters = title.querySelectorAll('.magnetic-letter');
 
-      console.log('Magnetic effect initialized');
-      const handleMouseMove = (e: MouseEvent) => {
-        console.log('Mouse move detected');
+      // Initialize letters
+      letters.forEach((letter) => {
+        // Store the character data for the pseudo-element
+        (letter as HTMLElement).setAttribute('data-char', (letter as HTMLElement).innerText);
+      });
+      
+      // Mouse movement handler for the whole title gradient and letter effects
+      const handleMouseMove = (e: Event) => {
+        const mouseEvent = e as MouseEvent;
+        
+        // Apply magnetic effect to each letter
         letters.forEach((letter) => {
-          const rect = (letter as HTMLElement).getBoundingClientRect();
-          const x = e.clientX - rect.left - rect.width / 2;
-          const y = e.clientY - rect.top - rect.height / 2;
-          (letter as HTMLElement).style.setProperty('--x-offset', `${x * 0.1}px`);
-          (letter as HTMLElement).style.setProperty('--y-offset', `${y * 0.1}px`);
+          const letterEl = letter as HTMLElement;
+          const rect = letterEl.getBoundingClientRect();
+          
+          // Calculate distance from cursor to letter center
+          const x = mouseEvent.clientX - rect.left - rect.width / 2;
+          const y = mouseEvent.clientY - rect.top - rect.height / 2;
+          const distance = Math.sqrt(x * x + y * y);
+          
+          // Effect strength based on distance (fade out at 300px)
+          const maxDistance = 300;
+          const strength = Math.max(0, 1 - distance / maxDistance);
+          
+          // Move the letter toward/away from cursor
+          letterEl.style.setProperty('--x-offset', `${x * 0.1 * strength}px`);
+          letterEl.style.setProperty('--y-offset', `${y * 0.1 * strength}px`);
         });
       };
-
-      window.addEventListener('mousemove', handleMouseMove);
-
+      
+      // Handle letter click animation
+      const handleLetterClick = (e: Event) => {
+        const target = e.target as HTMLElement;
+        if (target.classList.contains('magnetic-letter')) {
+          target.classList.add('clicked');
+          setTimeout(() => target.classList.remove('clicked'), 500);
+        }
+      };
+      
+      // Add event listeners
+      title.addEventListener('mousemove', handleMouseMove as EventListener);
+      title.addEventListener('click', handleLetterClick);
+      
+      // Clean up
       return () => {
-        window.removeEventListener('mousemove', handleMouseMove);
+        title.removeEventListener('mousemove', handleMouseMove as EventListener);
+        title.removeEventListener('click', handleLetterClick);
       };
     }
   }, []);
@@ -1499,9 +1530,11 @@ export default function Home() {
               <span className="h-px w-5 bg-indigo-400/50"></span>
             </p>
             <div className="mb-6">
-              <h1 className={`text-8xl font-semibold gradient-name glitch-text leading-tight drop-shadow-lg mb-2 tracking-tight header-entrance magnetic-title ${isVisible ? 'visible' : ''}`} data-text="Ville Pajala">
+              <h1 className="magnetic-title text-8xl font-semibold text-white leading-tight mb-2 tracking-tight">
                 {"Ville Pajala".split('').map((char, index) => (
-                  <span key={index} className="magnetic-letter">{char}</span>
+                  <span key={index} className="magnetic-letter">
+                    {char === ' ' ? '\u00A0' : char}
+                  </span>
                 ))}
               </h1>
             </div>
