@@ -13,11 +13,17 @@ export function cn(...inputs: ClassValue[]) {
  * Formats a date using Intl.DateTimeFormat
  */
 export function formatDate(date: Date): string {
-  return new Intl.DateTimeFormat('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  }).format(date)
+  try {
+    return new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    }).format(date)
+  } catch (error) {
+    console.error('Error formatting date:', error)
+    // Return ISO string as fallback
+    return date.toISOString().split('T')[0]
+  }
 }
 
 /**

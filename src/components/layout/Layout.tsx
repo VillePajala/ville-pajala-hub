@@ -1,7 +1,7 @@
 'use client'
 
 import { ReactNode, useEffect, useState } from 'react'
-import { Sidebar } from './Sidebar'
+import { TopNavigation } from './TopNavigation'
 import { cn } from '@/lib/utils'
 
 type LayoutProps = {
@@ -32,14 +32,15 @@ export function Layout({ children }: LayoutProps) {
       <div className="fixed -bottom-20 -right-20 w-[500px] h-[500px] bg-indigo-900/30 rounded-full blur-[120px] opacity-50 pointer-events-none"></div>
       <div className="fixed top-1/3 right-1/4 w-[300px] h-[300px] bg-blue-900/20 rounded-full blur-[100px] opacity-30 pointer-events-none"></div>
       
-      <div className={cn("flex flex-1 relative z-10")}>
-        {isMounted && <Sidebar />}
-        <main className={cn("flex-1 overflow-y-auto w-full pt-16 pb-16")}>
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            {children}
-          </div>
-        </main>
-      </div>
+      {/* Top Navigation */}
+      {isMounted && <TopNavigation />}
+      
+      {/* Main Content */}
+      <main className={cn("flex-1 overflow-y-auto w-full pt-24 pb-16")}>
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          {children}
+        </div>
+      </main>
     </div>
   )
 } 

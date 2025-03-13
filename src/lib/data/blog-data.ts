@@ -1,5 +1,9 @@
 import { BlogPost } from '@/components/sections/BlogCard'
 
+// More reliable Unsplash URLs using their production-ready format
+const getUnsplashUrl = (id: string, width = 800, height = 500) => 
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${width}&h=${height}&q=80`;
+
 // Mock data for blog posts
 export const blogPosts: BlogPost[] = [
   {
@@ -10,7 +14,7 @@ export const blogPosts: BlogPost[] = [
     date: new Date('2023-12-15'),
     categories: ['Technology & AI', 'Web Development'],
     tags: ['Next.js', 'TypeScript', 'Tutorial', 'Beginner'],
-    imageUrl: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
+    imageUrl: getUnsplashUrl('1555066931-4365d14bab8c')
   },
   {
     id: '2',
@@ -20,7 +24,7 @@ export const blogPosts: BlogPost[] = [
     date: new Date('2023-11-20'),
     categories: ['Philosophy & Learning', 'Technology & AI'],
     tags: ['AI', 'Philosophy', 'Ethics', 'Advanced'],
-    imageUrl: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
+    imageUrl: getUnsplashUrl('1620712943543-bcc4688e7485')
   },
   {
     id: '3',
@@ -30,7 +34,7 @@ export const blogPosts: BlogPost[] = [
     date: new Date('2023-12-01'),
     categories: ['Creative Work', 'Web Development'],
     tags: ['Animation', 'React', 'Tutorial', 'Intermediate'],
-    imageUrl: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
+    imageUrl: getUnsplashUrl('1550745165-9bc0b252726f')
   },
   {
     id: '4',
@@ -40,7 +44,7 @@ export const blogPosts: BlogPost[] = [
     date: new Date('2023-10-15'),
     categories: ['Metaphysics', 'Philosophy & Learning'],
     tags: ['Problem Solving', 'Creativity', 'Intuition', 'Advanced'],
-    imageUrl: 'https://images.unsplash.com/photo-1543966888-7c1dc482a810?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1594&q=80'
+    imageUrl: getUnsplashUrl('1543966888-7c1dc482a810')
   },
   {
     id: '5',
@@ -50,7 +54,7 @@ export const blogPosts: BlogPost[] = [
     date: new Date('2023-11-05'),
     categories: ['Technology & AI', 'Creative Work'],
     tags: ['TensorFlow', 'Machine Learning', 'Tutorial', 'Intermediate'],
-    imageUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad478?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80'
+    imageUrl: getUnsplashUrl('1677442136019-21780ecad478')
   },
   {
     id: '6',
@@ -60,7 +64,7 @@ export const blogPosts: BlogPost[] = [
     date: new Date('2023-09-28'),
     categories: ['Philosophy & Learning', 'Web Development'],
     tags: ['Writing', 'Documentation', 'Communication', 'Beginner'],
-    imageUrl: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1473&q=80'
+    imageUrl: getUnsplashUrl('1455390582262-044cdead277a')
   }
 ]
 
