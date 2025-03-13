@@ -60,7 +60,8 @@ export default function BlogPage() {
   }, [filteredPosts])
 
   return (
-    <div className="pb-12">
+    // Added more horizontal padding for medium and smaller screens
+    <div className="pb-12 px-4 sm:px-6 md:px-8 lg:px-6">
       <motion.header
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}

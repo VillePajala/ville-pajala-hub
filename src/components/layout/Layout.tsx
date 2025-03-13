@@ -37,7 +37,8 @@ export function Layout({ children }: LayoutProps) {
       
       {/* Main Content */}
       <main className={cn("flex-1 overflow-y-auto w-full pt-24 pb-16")}>
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        {/* Increased padding for small and medium screens */}
+        <div className="mx-auto max-w-5xl px-5 sm:px-8 md:px-10 lg:px-8">
           {children}
         </div>
       </main>

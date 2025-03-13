@@ -64,8 +64,8 @@ export function BlogCard({ post, index }: BlogCardProps) {
         )}
       </div>
       
-      {/* Content area with improved visibility */}
-      <div className="card-content-area p-6 flex-grow flex flex-col">
+      {/* Content area with improved visibility and responsive padding */}
+      <div className="card-content-area p-4 sm:p-5 md:p-6 flex-grow flex flex-col">
         <div className="mb-2 flex flex-wrap gap-2">
           {post.categories.map((category) => (
             <span 
