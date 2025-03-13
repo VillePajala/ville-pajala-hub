@@ -10,9 +10,10 @@ export default function BlogPage() {
   // Add loading state
   const [isLoading, setIsLoading] = useState(true)
   const [loadedPosts, setLoadedPosts] = useState<BlogPost[]>([])
-  const [filters, setFilters] = useState<{ categories: string[]; tags: string[] }>({
+  const [filters, setFilters] = useState<{ categories: string[]; tags: string[]; searchQuery: string }>({
     categories: [],
-    tags: []
+    tags: [],
+    searchQuery: ''
   })
 
   // Load blog posts with useEffect to ensure client-side loading
@@ -28,15 +29,22 @@ export default function BlogPage() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Filter posts based on selected categories and tags
+  // Filter posts based on selected categories, tags, and search query
   const filteredPosts = useMemo(() => {
     if (loadedPosts.length === 0) return []
     
     return loadedPosts.filter((post) => {
-      // If no filters are selected, show all posts
-      if (filters.categories.length === 0 && filters.tags.length === 0) {
+      // If no filters are selected and no search query, show all posts
+      if (filters.categories.length === 0 && filters.tags.length === 0 && !filters.searchQuery) {
         return true
       }
+
+      // Check if post matches search query (if provided)
+      const matchesSearch = !filters.searchQuery || 
+        post.title.toLowerCase().includes(filters.searchQuery.toLowerCase()) ||
+        post.excerpt.toLowerCase().includes(filters.searchQuery.toLowerCase()) ||
+        post.categories.some(cat => cat.toLowerCase().includes(filters.searchQuery.toLowerCase())) ||
+        post.tags.some(tag => tag.toLowerCase().includes(filters.searchQuery.toLowerCase()));
 
       // Check if post matches selected categories
       const matchesCategories =
@@ -48,8 +56,8 @@ export default function BlogPage() {
         filters.tags.length === 0 ||
         post.tags.some((tag) => filters.tags.includes(tag))
 
-      // Post must match both category and tag filters
-      return matchesCategories && matchesTags
+      // Post must match search query, category filters, and tag filters
+      return matchesSearch && matchesCategories && matchesTags
     })
   }, [filters, loadedPosts])
 
@@ -58,6 +66,32 @@ export default function BlogPage() {
     if (filteredPosts.length === 0) return []
     return [...filteredPosts].sort((a, b) => b.date.getTime() - a.date.getTime())
   }, [filteredPosts])
+
+  // Handle filter changes including search
+  const handleFilterChange = (newFilters: { categories: string[]; tags: string[] }) => {
+    setFilters(prev => ({
+      ...prev,
+      categories: newFilters.categories,
+      tags: newFilters.tags,
+    }))
+  }
+
+  // Handle search separately
+  const handleSearch = (query: string) => {
+    setFilters(prev => ({
+      ...prev,
+      searchQuery: query
+    }))
+  }
+
+  // Clear all filters
+  const handleClearFilters = () => {
+    setFilters({
+      categories: [],
+      tags: [],
+      searchQuery: ''
+    })
+  }
 
   // Animation variants for the hero title
   const letterVariants = {
@@ -112,25 +146,28 @@ export default function BlogPage() {
               <BlogFilter
                 categories={blogCategories}
                 tags={blogTags}
-                onFilterChange={setFilters}
+                onFilterChange={handleFilterChange}
+                onSearch={handleSearch}
               />
             </aside>
           </div>
 
           <div className="lg:col-span-3">
+            {/* Active filters bar removed - now displaying in sidebar under each dropdown */}
+
             {isLoading ? (
               // Loading state
               <div className="grid gap-8 grid-cols-1 md:grid-cols-2">
                 {[...Array(6)].map((_, index) => (
                   <div 
                     key={index} 
-                    className="rounded-lg border border-border bg-card animate-pulse flex flex-col"
+                    className="rounded-lg border border-white/10 bg-black/30 animate-pulse flex flex-col"
                   >
-                    <div className="h-48 bg-muted/40 rounded-t-lg"></div>
-                    <div className="p-6 space-y-3 flex-grow card-content-area">
-                      <div className="h-4 bg-muted/40 rounded w-3/4"></div>
-                      <div className="h-4 bg-muted/40 rounded w-1/2"></div>
-                      <div className="h-4 bg-muted/40 rounded w-5/6"></div>
+                    <div className="h-48 bg-white/5 rounded-t-lg"></div>
+                    <div className="p-6 space-y-3 flex-grow">
+                      <div className="h-4 bg-white/5 rounded w-3/4"></div>
+                      <div className="h-4 bg-white/5 rounded w-1/2"></div>
+                      <div className="h-4 bg-white/5 rounded w-5/6"></div>
                     </div>
                   </div>
                 ))}
@@ -152,11 +189,11 @@ export default function BlogPage() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="rounded-lg border border-border bg-card p-12 text-center"
+                className="rounded-lg border border-white/10 bg-black/30 p-12 text-center"
               >
-                <h3 className="mb-2 text-xl font-medium" style={{ color: 'white' }}>No posts found</h3>
-                <p style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
-                  Try adjusting your filters to find what you're looking for.
+                <h3 className="mb-2 text-xl font-medium text-white">No posts found</h3>
+                <p className="text-white/70">
+                  Try adjusting your filters or search query to find what you're looking for.
                 </p>
               </motion.div>
             )}
