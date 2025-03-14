@@ -115,14 +115,9 @@ export function TopNavigation() {
                   {item.title}
                 </Link>
                 
-                {/* Dropdown for desktop */}
+                {/* Dropdowns are hidden with hidden class but structure is preserved */}
                 {item.children && (
-                  <div className={cn(
-                    'absolute left-0 mt-1 min-w-[200px] origin-top-left rounded-md bg-card border border-border shadow-lg overflow-hidden z-50 transition-all',
-                    activeDropdown === item.title 
-                      ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
-                      : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
-                  )}>
+                  <div className="hidden">
                     <div className="py-1">
                       {item.children.map((child) => (
                         <Link
@@ -181,8 +176,9 @@ export function TopNavigation() {
                     {item.title}
                   </Link>
                   
+                  {/* Mobile dropdowns are hidden but structure is preserved */}
                   {item.children && (
-                    <div className="bg-background/50 pl-4">
+                    <div className="hidden">
                       {item.children.map((child) => (
                         <Link
                           key={child.href}
