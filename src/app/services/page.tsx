@@ -1,132 +1,124 @@
 'use client'
 
-import { PageTransition } from '@/components/ui/PageTransition'
-import { Section } from '@/components/sections/Section'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/Card'
-import { Button } from '@/components/ui/Button'
+import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
+import { ServiceCard } from '@/components/sections/ServiceCard'
+import { services, serviceCategories } from '@/lib/data/services-data'
 import Link from 'next/link'
 
 export default function ServicesPage() {
+  // Add loading state
+  const [isLoading, setIsLoading] = useState(true)
+  const [loadedServices, setLoadedServices] = useState<typeof services>([])
+  
+  // Load services with useEffect to ensure client-side loading
+  useEffect(() => {
+    // Simplified loading to avoid potential issues
+    setLoadedServices(services);
+    
+    // Short timeout to ensure DOM is ready
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Animation variants for the hero title
+  const letterVariants = {
+    hidden: { opacity: 0 },
+    visible: (i: number) => ({
+      opacity: 1,
+      transition: {
+        delay: i * 0.1,
+      },
+    }),
+  }
+
+  const heroTitle = "Services";
+
   return (
-    <PageTransition>
-      <Section
-        title="Services"
-        description="Professional consulting and development services tailored to your needs."
-      >
-        <div className="space-y-12">
-          <p className="text-lg text-muted-foreground">
-            I offer specialized services at the intersection of technology, creativity, and business, focusing on AI consulting, automation solutions, web development, and creative technology implementation.
-          </p>
-          
-          <div className="grid gap-8 md:grid-cols-2">
-            <Card>
-              <CardHeader>
-                <CardTitle>AI & Machine Learning Services</CardTitle>
-                <CardDescription>
-                  Harness the power of artificial intelligence for your business.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li>• AI strategy consulting and implementation planning</li>
-                  <li>• Custom machine learning model development</li>
-                  <li>• Natural language processing solutions</li>
-                  <li>• Computer vision applications</li>
-                  <li>• AI integration with existing systems</li>
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button asChild>
-                  <Link href="/services/ai-machine-learning">Learn More</Link>
-                </Button>
-              </CardFooter>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Automation Solutions</CardTitle>
-                <CardDescription>
-                  Streamline your workflows and increase efficiency.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li>• Business process automation</li>
-                  <li>• Workflow optimization and redesign</li>
-                  <li>• Custom automation scripts and tools</li>
-                  <li>• Integration between different platforms</li>
-                  <li>• Automated testing and quality assurance</li>
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button asChild>
-                  <Link href="/services/automation-solutions">Learn More</Link>
-                </Button>
-              </CardFooter>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Web & App Development</CardTitle>
-                <CardDescription>
-                  Modern, responsive, and user-friendly digital experiences.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li>• Website and web application development</li>
-                  <li>• Progressive web apps (PWAs)</li>
-                  <li>• E-commerce solutions</li>
-                  <li>• Content management systems (CMS)</li>
-                  <li>• Performance optimization and SEO</li>
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button asChild>
-                  <Link href="/services/web-app-development">Learn More</Link>
-                </Button>
-              </CardFooter>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Creative Technology</CardTitle>
-                <CardDescription>
-                  Innovative solutions that blend art, design, and technology.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li>• Interactive installations and experiences</li>
-                  <li>• Generative art and design</li>
-                  <li>• Creative coding projects</li>
-                  <li>• Digital storytelling applications</li>
-                  <li>• Experimental interfaces and interactions</li>
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button asChild>
-                  <Link href="/services/creative-technology">Learn More</Link>
-                </Button>
-              </CardFooter>
-            </Card>
+    <div>
+      {/* Transparent hero section with centered text */}
+      <div className="relative py-24 mb-8 overflow-visible flex items-center justify-center">
+        <div className="text-center">
+          <div className="flex justify-center overflow-visible pb-8">
+            {heroTitle.split("").map((letter, index) => (
+              <motion.span
+                key={index}
+                custom={index}
+                initial="hidden"
+                animate="visible"
+                variants={letterVariants}
+                className="inline-block font-serif text-7xl md:text-8xl font-bold"
+                style={{ lineHeight: 1.2 }}
+              >
+                {letter}
+              </motion.span>
+            ))}
           </div>
           
-          <div className="rounded-lg border border-border bg-card p-8">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              <div>
-                <h3 className="text-2xl font-semibold mb-2">Ready to Work Together?</h3>
-                <p className="text-muted-foreground">
-                  Let's discuss how I can help bring your ideas to life.
-                </p>
-              </div>
-              <Button size="lg" asChild>
-                <Link href="/contact">Get in Touch</Link>
-              </Button>
-            </div>
-          </div>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="text-xl text-gray-300 max-w-2xl mx-auto" 
+          >
+            Professional consulting and development services tailored to your needs.
+          </motion.p>
         </div>
-      </Section>
-    </PageTransition>
+      </div>
+
+      {/* Main content with services */}
+      <div className="pb-12 px-4 sm:px-6 md:px-8 lg:px-6">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {isLoading ? (
+            // Loading state
+            [...Array(6)].map((_, index) => (
+              <div 
+                key={index} 
+                className="rounded-lg border border-white/10 bg-black/30 animate-pulse flex flex-col"
+              >
+                <div className="h-48 bg-white/5 rounded-t-lg"></div>
+                <div className="p-6 space-y-3 flex-grow">
+                  <div className="h-4 bg-white/5 rounded w-3/4"></div>
+                  <div className="h-4 bg-white/5 rounded w-1/2"></div>
+                  <div className="h-4 bg-white/5 rounded w-5/6"></div>
+                </div>
+              </div>
+            ))
+          ) : (
+            loadedServices.map((service, index) => (
+              <div key={service.id} className="h-full">
+                <ServiceCard service={service} index={index} />
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* Call to action */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-16 rounded-lg border border-white/10 p-8 bg-gradient-to-br from-zinc-900/50 to-zinc-700/30 backdrop-blur-sm"
+        >
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <h3 className="text-2xl font-serif font-medium text-white/95 mb-2">Ready to Work Together?</h3>
+              <p className="text-white/80">
+                Let's discuss how I can help bring your ideas to life.
+              </p>
+            </div>
+            <Link 
+              href="/contact"
+              className="px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white/30 rounded-lg text-white font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-white/5"
+            >
+              Get in Touch
+            </Link>
+          </div>
+        </motion.div>
+      </div>
+    </div>
   )
 } 
