@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Search, X, Filter, ChevronDown } from 'lucide-react'
+import { Search, X, ChevronDown } from 'lucide-react'
 
 interface BlogFilterProps {
   categories: string[]
@@ -85,7 +85,7 @@ export function BlogFilter({ categories, tags, onFilterChange, onSearch }: BlogF
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="mb-8 space-y-6"
+      className="mb-8 space-y-4"
     >
       {/* Scrollbar styling with CSS */}
       <style jsx global>{`
@@ -129,24 +129,20 @@ export function BlogFilter({ categories, tags, onFilterChange, onSearch }: BlogF
         )}
       </div>
 
-      {/* Filter controls */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center">
-          <Filter size={16} className="text-white/70 mr-2" />
-          <h2 className="text-lg font-medium text-white/90">Filters</h2>
-        </div>
-        {hasActiveFilters && (
+      {/* Clear all button - positioned consistently */}
+      {hasActiveFilters && (
+        <div className="flex justify-end">
           <button 
             onClick={handleClearFilters}
             className="text-sm text-white/60 hover:text-white/90 transition-colors"
           >
             Clear all
           </button>
-        )}
-      </div>
+        </div>
+      )}
 
-      {/* Filter dropdowns */}
-      <div className="space-y-3">
+      {/* Filter dropdowns with consistent spacing */}
+      <div className="space-y-4">
         {/* Category filter dropdown */}
         <div className="space-y-3">
           <div className="relative" ref={categoryDropdownRef}>
